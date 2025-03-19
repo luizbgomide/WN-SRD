@@ -78,3 +78,7 @@ other basic comforts, this Effort cannot be recovered.
 
 Activating a power only ever requires Committing a single point
 of Effort, unless the power itself says otherwise.
+
+## The Class List
+
+The classes that follow are flavor-stripped versions of those found in **Worlds Without Number** and its supplement, **The Atlas of the Latter Earth**. While mainstays such as the Warrior, the Expert, or the High Mage are appropriate to almost any fantasy setting, others may not fit specific campaigns. A GM always has the right to omit classes that do not fit the flavor of the game they are running.

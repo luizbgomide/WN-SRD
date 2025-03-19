@@ -1,0 +1,504 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>The Expert - Worlds Without Number SRD v1.0</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="highlight-css" href="../highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="../tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../ep2e.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Worlds Without Number SRD v1.0</h1>
+
+                    <div class="right-buttons">
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="the-expert"><a class="header" href="#the-expert">The Expert</a></h1>
+<p>Your hero is an expert at some useful skill. Thieves, diplomats, healers, scholars, explorers, artisans, and other such heroes should
+pick the Expert class if they wish to focus on developing their special skills and performing tremendous feats of mastery with them.
+Experts gain the widest variety of non-combat skills and are the
+quickest to learn more of them.</p>
+<p>An Expert has an uncanny knack for wielding their skills successfully at a crucial moment, whether or not it’s a skill they’ve taken
+for their specialty. Once per scene, the Expert can reroll a failed
+non-combat skill check, gaining a second chance to yank victory
+from the jaws of otherwise certain failure. Their natural focus on personal development and determined refinement of their skills bleeds
+through even into those talents they don’t make their special domain.</p>
+<p>Experts are also capable combatants, fully able to hold their
+own in the midst of a murderous fray. It’s not unknown for some
+Experts to specialize in professions related to martial pursuits, such
+as an assassin who relies heavily on their superb powers of stealth
+and deception to reach their unwary foes.</p>
+<blockquote class="table">
+<h2 id="full-expert"><a class="header" href="#full-expert">Full Expert</a></h2>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: center">Level</th><th style="text-align: center">Hit Dice</th><th style="text-align: center">Attack Bonus</th><th style="text-align: center">Focus Picks</th></tr></thead><tbody>
+<tr><td style="text-align: center">1</td><td style="text-align: center">1d6</td><td style="text-align: center">+0</td><td style="text-align: center">1 Expert + 1 Any</td></tr>
+<tr><td style="text-align: center">2</td><td style="text-align: center">2d6</td><td style="text-align: center">+1</td><td style="text-align: center">+1 Any</td></tr>
+<tr><td style="text-align: center">3</td><td style="text-align: center">3d6</td><td style="text-align: center">+1</td><td style="text-align: center"></td></tr>
+<tr><td style="text-align: center">4</td><td style="text-align: center">4d6</td><td style="text-align: center">+2</td><td style="text-align: center"></td></tr>
+<tr><td style="text-align: center">5</td><td style="text-align: center">5d6</td><td style="text-align: center">+2</td><td style="text-align: center">+1 Any</td></tr>
+<tr><td style="text-align: center">6</td><td style="text-align: center">6d6</td><td style="text-align: center">+3</td><td style="text-align: center"></td></tr>
+<tr><td style="text-align: center">7</td><td style="text-align: center">7d6</td><td style="text-align: center">+3</td><td style="text-align: center">+1 Any</td></tr>
+<tr><td style="text-align: center">8</td><td style="text-align: center">8d6</td><td style="text-align: center">+4</td><td style="text-align: center"></td></tr>
+<tr><td style="text-align: center">9</td><td style="text-align: center">9d6</td><td style="text-align: center">+4</td><td style="text-align: center"></td></tr>
+<tr><td style="text-align: center">10</td><td style="text-align: center">10d6</td><td style="text-align: center">+5</td><td style="text-align: center">+1 Any</td></tr>
+</tbody></table>
+</div></blockquote><blockquote>
+<h3 id="class-ability-masterful-expertise"><a class="header" href="#class-ability-masterful-expertise">Class Ability: Masterful Expertise</a></h3>
+<p>Once per scene, a Full Expert may reroll any non-combat skill
+check as an Instant action. This allows the Expert to make a roll
+and then immediately use this ability if the resulting total isn’t good
+enough to succeed. In cases where it matters, the better of the two
+rolls may be used.</p>
+<p>Note that the typical ten-minute dungeon exploration turn generally counts as a scene, allowing the Full Expert to use this ability
+every turn if they so wish.</p>
+<p>Partial Experts do not receive this ability.</p>
+<h3 id="class-ability-quick-learner"><a class="header" href="#class-ability-quick-learner">Class Ability: Quick Learner</a></h3>
+<p>When you advance a character level, you gain an extra skill point
+which may only be spent on gaining or improving non-combat
+skills or raising attributes. You may save this point to spend later
+if you wish.</p>
+<p>Partial Experts do receive this ability.</p>
+</blockquote>
+<h2 id="the-bard"><a class="header" href="#the-bard">The Bard</a></h2>
+<p>Bards are those who have an uncanny ability to move others
+through the power of their performance.</p>
+<h3 id="benefits-of-the-bard"><a class="header" href="#benefits-of-the-bard">Benefits of the Bard</a></h3>
+<p>The Bard is a partial Expert class that must be joined with a second
+partial class by an Adventurer. A Partial Warrior/Bard might be
+a martial skald, a Partial Expert/Bard might be a light-fingered
+troubadour, while a Partial Mage/Bard might mix true magic in
+with their artful performances.</p>
+<p>All Bards gain Perform-0 during character creation. Their abilities
+hinge on their power to move a listener, whether that is by song,
+musicianship, or stirring oratory.</p>
+<p>Unlike the normal Partial Expert class, Bards do not get a bonus
+non-combat Focus at first level, nor do they get a Partial Expert’s
+bonus skill point when advancing a character level. One who
+takes the standard Partial Expert for their other class gains these
+things normally.</p>
+<h3 id="bard-arts"><a class="header" href="#bard-arts">Bard Arts</a></h3>
+<p>A Bard has an Effort score equal to their Perform skill level plus their
+Charisma modifier, to a minimum of one point. Bard arts may be
+used in or out of armor, and do not count as magical effects for the
+purposes of abilities that counter or detect magic. Unless specified
+otherwise, their range is out to normal unaided voice range.</p>
+<p>Every Bard gains A Thousand Tongues as a starting art, plus
+one more of their choice. As they advance in levels, they can pick
+additional arts.</p>
+<p><strong>A Thousand Tongues:</strong> Your arts that require communication are
+intuitively understood by all intelligent creatures, whether or not
+you speak their language. You can learn a new language with no
+more than a week of study with a native speaker.</p>
+<blockquote class="table">
+<h4 id="bard-arts-1"><a class="header" href="#bard-arts-1">Bard Arts</a></h4>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: center">Level</th><th style="text-align: left">Arts Gained</th></tr></thead><tbody>
+<tr><td style="text-align: center">1</td><td style="text-align: left">A Thousand Tongues and Any One</td></tr>
+<tr><td style="text-align: center">2</td><td style="text-align: left">Any One</td></tr>
+<tr><td style="text-align: center">3</td><td style="text-align: left"></td></tr>
+<tr><td style="text-align: center">4</td><td style="text-align: left">Any One</td></tr>
+<tr><td style="text-align: center">5</td><td style="text-align: left"></td></tr>
+<tr><td style="text-align: center">6</td><td style="text-align: left">Any One</td></tr>
+<tr><td style="text-align: center">7</td><td style="text-align: left"></td></tr>
+<tr><td style="text-align: center">8</td><td style="text-align: left">Any One</td></tr>
+<tr><td style="text-align: center">9</td><td style="text-align: left"></td></tr>
+<tr><td style="text-align: center">10</td><td style="text-align: left">Any One</td></tr>
+</tbody></table>
+</div></blockquote>
+<p><strong>Battle Cry:</strong> Commit Effort for the day as an On Turn action to
+bolster your allies. They gain +1 to hit, saving throws, and damage,
+including Shock, for one round per level. At 4th level this bonus
+increases to +2, and at 9th, to +3.</p>
+<p><strong>Cursed Tune:</strong> Commit Effort for the scene as a Main Action while
+targeting an intelligent creature. Your imprecations cause them to
+falter, inflicting a -1 penalty to their hit, damage, and saving throw
+rolls for one round per level. At 4th level this penalty becomes -2,
+and at 9th it becomes -3.</p>
+<p><strong>Deft Fingers:</strong> You’re accustomed to juggling your belongings
+while holding an instrument. Your maximum Readied item count
+increases by two.</p>
+<p><strong>Entangle Incantation:</strong> Commit Effort for the scene as an Instant
+action when an foe within 60’ incants a spell. Your voice tangles
+with their words, forcing them to make an opposed Int/Magic vs
+Cha/Perform skill check against you, with a +2 bonus to your roll.
+If you tie or succeed, the spell fizzles and is wasted. This art can
+be used only once per round.</p>
+<p><strong>Evoke Emotion:</strong> Commit Effort for the day as a Main Action while
+performing. You evoke a desired emotion in listeners, whether intelligent
+or animal, granting a +1 bonus to relevant social skill checks
+for the scene for you and your allies. If desired, you can force a new
+Reaction Roll, taking it if it’s more favorable than the original. This
+art does not work in combat and can be used only once per scene.</p>
+<p><strong>Inspire Dread:</strong> Commit Effort for the day as an Instant action
+when your enemies are forced to make a Morale check. You goad their fears, forcing them to make two Morale checks instead of
+one. Those who succeed on both must still make an Instinct check
+immediately after.</p>
+<p><strong>Keen Senses:</strong> This art gives you the equivalent of sight out to 60’
+even if blinded. You cannot distinguish colors, but you can perceive
+physical details as readily as if with your eyes. Physically-invisible
+creatures and objects are obvious to you.</p>
+<p><strong>Liberating Song:</strong> You are immune to mind- or emotion-controlling
+effects. You can Commit Effort for the scene as an Instant action
+to grant any ally in range a Mental saving throw to throw off such
+effects, assuming they allowed a save to begin with. If the second
+save is failed, this art cannot help them.</p>
+<p><strong>Rally:</strong> Commit Effort for the day as a Main Action to exhort a
+wounded or fallen ally, removing any Frailty. The target regains
+2d6 plus your level in hit points, but you incur one System Strain.</p>
+<p><strong>Soothe the Savage:</strong> Commit Effort for the day as a Main Action.
+For as long as you keep spending a Main Action performing each
+round, animals and other living bestial creatures will not attack you
+or your allies unless commanded by their masters or threatened by
+the party. This art can’t be triggered once actual combat has begun.</p>
+<p><strong>Soothing Graces:</strong> Your arts restore and hearten those with you. You
+and your allies lose an extra point of System Strain after each night’s
+comfortable rest. This does not stack with similar rest-aiding powers.</p>
+<p><strong>Swift Misdirection:</strong> Commit Effort for the scene as a Main Action
+and target one intelligent creature within earshot. Tell them
+something in no more than one sentence; unless what you say is
+physically impossible or emotionally unendurable, they must make
+a Mental save or believe it for one round. After that, they can judge
+your words with their normal reason. This art can affect a creature
+only once per scene.</p>
+<h2 id="the-wise"><a class="header" href="#the-wise">The Wise</a></h2>
+<p>Some low-magic settings have a particular place for concepts that
+aren’t exactly magical, but have some special place in society.
+Whether a mundane priest of the dominant faith, a feared forest
+warlock, or a sacred oracle of the gods, these Wise have a special
+role to fill.</p>
+<p>Some of these Wise may have very minor or subtle magical
+powers suitable to a low-magic campaign setting.</p>
+<p>In general, the Wise class is usually only viable in a low- or
+no-magic setting where their limited powers are still more than
+almost anyone else has access to. If standard magic exists in your
+campaign the Wise may not offer enough to appeal to players.</p>
+<h3 id="benefits-of-the-wise"><a class="header" href="#benefits-of-the-wise">Benefits of the Wise</a></h3>
+<p>The Wise is a partial Expert class that must be taken by an Adventurer with another partial class. It’s generally suited for low-magic
+campaigns, but strictly mundane versions of it may pass muster for
+a no-magic setting.</p>
+<p>While the Wise count as a partial Expert class for other purposes, they do not gain the advantage of the partial Expert’s <strong>Quick Learner</strong> class ability or the bonus non-combat Focus that a partial
+Expert normally gets at first level. An Adventurer who is a standard
+partial Expert/partial Wise does get these perks, however.</p>
+<p>All Wise gain level-0 in a bonus skill appropriate to their concept,
+be it Pray, Know, Magic, Survive, or some other skill that makes
+sense to the GM.</p>
+<p>The Wise do not use Effort. All of their arts are either constantly in
+effect or can be used under particular circumstances or a particular
+number of times each day.</p>
+<p>The arts the Wise learn are generally fixed by their concept and
+role. A mundane priest will learn certain arts as they advance in
+level, while a witch or an oracular seer will learn others. At some
+levels, the Wise might have a choice; they can pick whichever art
+they wish, but most arts can be taken only once.</p>
+<p>The example tables here provide progression patterns for a
+non-magical priest of a faith, a witch with minor magical powers
+of cursing and foresight, and an oracle with limited powers of
+divination. For GMs that wish to allow player-made concepts, the
+Esoteric column can be used, or a specific progression can be
+worked up in cooperation with the player.</p>
+<blockquote class="table">
+<h4 id="example-art-progressions-for-different-types-of-wise"><a class="header" href="#example-art-progressions-for-different-types-of-wise">Example Art Progressions For Different Types of Wise</a></h4>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: center">Level</th><th style="text-align: left">Mundane Priest</th><th style="text-align: left">Witch</th><th style="text-align: left">Seer</th><th style="text-align: left">Esoteric</th></tr></thead><tbody>
+<tr><td style="text-align: center">1</td><td style="text-align: left">Holy Sanctity</td><td style="text-align: left">Dread Awe</td><td style="text-align: left">Erudite or Folk-Friend</td><td style="text-align: left">Any Art</td></tr>
+<tr><td style="text-align: center">2</td><td style="text-align: left">Dread Awe or Folk-Friend</td><td style="text-align: left">Any Curse or Blessing</td><td style="text-align: left">Any Divination</td><td style="text-align: left"></td></tr>
+<tr><td style="text-align: center">3</td><td style="text-align: left"></td><td style="text-align: left"></td><td style="text-align: left"></td><td style="text-align: left">Any Art</td></tr>
+<tr><td style="text-align: center">4</td><td style="text-align: left">Skilled or Erudite</td><td style="text-align: left">Healer or Any Curse or Blessing</td><td style="text-align: left">Any Divination</td><td style="text-align: left"></td></tr>
+<tr><td style="text-align: center">5</td><td style="text-align: left">Personal Impunity</td><td style="text-align: left">Any Divination</td><td style="text-align: left">Any Divination</td><td style="text-align: left">Any Art</td></tr>
+<tr><td style="text-align: center">6</td><td style="text-align: left">Elite Ties or Folk-Friend</td><td style="text-align: left">Skilled</td><td style="text-align: left">Skilled or Elite Ties</td><td style="text-align: left"></td></tr>
+<tr><td style="text-align: center">7</td><td style="text-align: left"></td><td style="text-align: left"></td><td style="text-align: left"></td><td style="text-align: left">Any Art</td></tr>
+<tr><td style="text-align: center">8</td><td style="text-align: left">Any General Art</td><td style="text-align: left">Any Divination or Curse or Blessing</td><td style="text-align: left">Skilled or Elite Ties</td><td style="text-align: left"></td></tr>
+<tr><td style="text-align: center">9</td><td style="text-align: left"></td><td style="text-align: left"></td><td style="text-align: left"></td><td style="text-align: left">Any Art</td></tr>
+<tr><td style="text-align: center">10</td><td style="text-align: left">Any General Art</td><td style="text-align: left">Any Curse or Blessing</td><td style="text-align: left">Any Divination</td><td style="text-align: left"></td></tr>
+</tbody></table>
+</div></blockquote>
+<h3 id="general-arts"><a class="header" href="#general-arts">General Arts</a></h3>
+<p><strong>Dread Awe:</strong> Your kind are figures of fear and mistrust. Gain a +1
+bonus on all skill checks related to intimidation or threat. You can
+spend a Main Action cursing your foes in battle; those who hear
+suffer a -1 penalty to their next Morale check. You can do this only
+once per scene.</p>
+<p><strong>Elite Ties:</strong> You have ties with figures of societal importance. You
+can get audiences with them with minimal effort. Once per game
+session, get a favor from them that would not particularly inconvenience them to grant.</p>
+<p><strong>Erudite:</strong> You are uncommonly learned. Once per day, reroll a
+failed skill check related to intellectual pursuits or things a scholar
+would know about.</p>
+<p><strong>Folk-Friend:</strong> Commoners and other lower-class natives consider
+you a useful healer and helper. Once per day, get a modest favor
+from a commoner who doesn’t hate you in exchange for a blessing or bit of advice.</p>
+<p><strong>Healer:</strong> You are a trained and capable healer. Gain a +1 on all
+Heal skill checks; once per day, as an On Turn action, automatically
+succeed at a skill check to stabilize a Mortally Wounded subject.</p>
+<p><strong>Holy Sanctity:</strong> You are honored and respected by most in this region. Gain a +1 bonus on social skill checks with locals who are not
+naturally opposed to your religion or social institution.</p>
+<p><strong>Personal Impunity:</strong> You bear signs of sanctity, and physically harming you is considered taboo in this region. Only the most vicious or
+desperate humans will initiate violence against you, though any will
+fight if you attack them. Hostile groups will hesitate to attack your
+companions unless provoked.</p>
+<p><strong>Skilled:</strong> Gain three skill points to spend on any non-combat skills,
+up to the maximum skill level allowed by your character level. This
+art may be taken more than once.</p>
+<h3 id="divination-arts"><a class="header" href="#divination-arts">Divination Arts</a></h3>
+<p><strong>Compel Truth:</strong> The diviner compels a person to drink a particular
+brew, participate in a specific ritual, or otherwise undergo a scenelong ordeal. Afterwards, the diviner may ask the target a single question and the GM secretly rolls a Cha/Magic skill check against a
+difficulty of the target’s Morale+1, or level+6 for PCs. On a success,
+the subject must answer the question truthfully and fully. On a failure,
+they may give any answer they wish. The same or substantially same
+question may not be asked twice with this art.</p>
+<p><strong>Deliver Oracle:</strong> A petitioner asks about the outcome of a particular
+course of action. The diviner then spends a day in various rituals,
+seeking an oracular answer. At the end, the GM makes a secret Wis/
+Magic skill check. If the skill check beats difficulty 8, an oracular sentence with some truth in it is produced. If the skill check beats difficulty
+12, a direct and obvious oracle is produced. If the skill check is 7 or
+less, a hopelessly ambiguous oracle is produced, and if the dice roll
+a natural 2 an intentionally misleading oracle is delivered. Oracles
+are usually delivered as metaphors, poetry, or visions. The GM should
+ensure that some element of a true oracle actually does come to pass.</p>
+<p><strong>Find Object:</strong> The diviner spends a scene performing a ritual to locate
+a particular animal, object or type of substance known to them, be it
+gold, water, or a specific stolen cow. People cannot be found with this
+art. The GM makes a secret Wis/Magic skill check against a difficulty
+of 8 to 11, depending on how close the nearest suitable object is;
+something in the same village is 8, something a mile or more away is 11, and something more than five miles away is undetectable. If the
+check is successful, the diviner gets an impression of the direction the
+object is in. On a failure, roll 1d12 and use it as a clock face to give
+a random direction. This art can be used once per day.</p>
+<p><strong>Read Omens:</strong> A petitioner proposes a course of action to the PC.
+After a scene-long ritual involving at least 10 sp worth of livestock or
+sacrificial material, the GM makes a secret Wis/Magic skill check
+against difficulty 10. On a success, the PC gets an impression of
+whether the course of action will lead to success or failure, as the
+GM thinks most likely. On a failure, the GM gives a random result.
+Multiplying the ritual costs by 10 adds +1 to the skill check, thus, a
+sacrifice of 1,000 sp worth of livestock gets a +2 on the check. The
+same course of action cannot be divined more than once a month.</p>
+<h3 id="curses-and-blessings"><a class="header" href="#curses-and-blessings">Curses and Blessings</a></h3>
+<p>The bringing of fortune or ill fate is not a trivial thing. A given creature
+can be cursed or blessed by one of these arts only once a day.</p>
+<p><strong>Auspicious Undertaking:</strong> As a Main Action, bless a particular
+plan or undertaking currently sought by the target. During the plan’s
+execution or while seeking the desired end, the blessed subject can
+reroll one failed skill check or one missed hit roll. The blessing lasts
+until it is used, the plan is finished, or one day per caster level has
+passed. Only one plan can be blessed at a time.</p>
+<p><strong>Evil Eye:</strong> This art improves your curse and blessing arts. You can now
+use these arts as an Instant action, albeit still only one such art per
+round, and you need do no more than look at the target rather than
+vocalizing any particular curse or blessing.</p>
+<p><strong>Ill Fate:</strong> As a Main Action, curse a visible target. You may specify
+a particular kind of undertaking or apply the curse to anything they
+may do. The next pertinent skill check they make is made at a -1
+penalty. If their raw die roll is equal or less than the PC’s Magic skill
+plus one their effort goes disastrously wrong. The curse lasts until the
+next relevant skill check.</p>
+<p><strong>Luck Blessing:</strong> As a Main Action, confer a blessing on a visible target.
+The next skill check they make that day will have a +1 bonus. Only
+one luck blessing can be in place for a creature at a time.</p>
+<p><strong>War Curse:</strong> As a Main Action, curse a visible enemy. They suffer a
+-2 penalty to hit rolls, damage rolls, and Shock damage for the rest
+of the scene. If they miss an attack with a raw to-hit die roll less than
+the Wise’s Magic skill, they accidentally hurt themselves for normal
+damage. Only one war curse can be applied at a time.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../01/05-the-warrior.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../01/07-the-mage.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../01/05-the-warrior.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../01/07-the-mage.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>
