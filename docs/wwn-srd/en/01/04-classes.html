@@ -1,0 +1,280 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Classes - Worlds Without Number SRD v1.0</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="highlight-css" href="../highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="../tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../ep2e.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Worlds Without Number SRD v1.0</h1>
+
+                    <div class="right-buttons">
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="classes"><a class="header" href="#classes">Classes</a></h1>
+<p>PCs are uncommon in that each of them has a <strong>class</strong>. A class represents
+the particular skills, abilities, or talents that make the PC a viable
+adventurer. NPCs do not normally have classes, though they may
+have special abilities or powers of their own.</p>
+<h2 id="the-three-base-classes"><a class="header" href="#the-three-base-classes">The Three Base Classes</a></h2>
+<p>The three base classes are Expert, Mage, and Warrior. Each of these
+base classes has its own hit die, attack progression, and Focus advancement. PCs use the tables for the class they choose.</p>
+<h2 id="full-and-partial-classes"><a class="header" href="#full-and-partial-classes">Full and Partial Classes</a></h2>
+<p>There are two kinds of classes: <strong>Full classes</strong> and <strong>Partial classes</strong>. A
+PC may choose to pick a single Full class, committing completely to
+that class’ profession, or they may choose to become an Adventurer
+and pick two Partial classes instead, mixing their abilities.</p>
+<p>The Warrior, Expert, High Mage, Necromancer, Invoker, and
+Elementalist classes may be taken either as a Full class or as a Partial
+class. In the former case, the PC gains the full range of powers granted
+to the profession. If taken as a Partial class, a more restricted range
+of abilities are granted.</p>
+<p>The Healer, Vowed, Bard, Thought Noble, Accursed, Wise, Mageslayer, Skinshifter, Duelist, Beastmaster, and Blood Priest can only
+be taken as Partial classes. These classes are limited in scope, and
+must be paired with another Partial class.</p>
+<h2 id="the-adventurer-class"><a class="header" href="#the-adventurer-class">The Adventurer Class</a></h2>
+<p>The Adventurer is a special class that allows the PC to take two Partial
+classes and mix them together. These may be Partial-only classes,
+such as a Healer/Vowed, or they may be Partial versions of Warrior,
+Expert, or Mage classes, such as a Partial Expert/Thought Noble.
+A dual-specialization spellcaster is also possible by mixing a Partial
+High Mage/Partial Elementalist together, for example.</p>
+<h2 id="classes-and-effort"><a class="header" href="#classes-and-effort">Classes and Effort</a></h2>
+<p>Some classes have special abilities that are fueled with magical
+power, inner focus, or some other reserve of energy. This capacity
+is measured in points of Effort, a resource the PC can commit to
+activate their abilities.</p>
+<p>Every class that uses Effort has its own unique pool: High Mage
+Effort, Vowed Effort, Healer Effort, and so forth. Adventurers with two
+Partial classes that use Effort have two separately-tracked pools, one
+for each class. Points of Effort from one class cannot be used to fuel
+powers from another.</p>
+<p>The maximum Effort of a Full class is equal to 1 plus a relevant
+skill level and ability modifier given by the class. A Partial class uses
+the same formula, but with 1 fewer point of Effort, to a minimum of 1.</p>
+<h2 id="committing-effort"><a class="header" href="#committing-effort">Committing Effort</a></h2>
+<p>Most class powers require that Effort be Committed. Committing
+Effort is done as part of activating a power, and ties up the Effort for
+a varying amount of time depending on the ability used.</p>
+<p>Some powers <strong>Commit Effort for the duration</strong>. This means the
+Effort remains Committed as long as the power is active. The PC
+can reclaim the Committed Effort at any time as an Instant action,
+deactivating the power.</p>
+<p>Some powers <strong>Commit Effort for the scene</strong>. The Effort remains
+Committed until the end of the scene, after which it returns to the PC.
+It cannot be reclaimed earlier, even if the ability it fuels is only good
+for a single attack or action. A scene usually amounts to a single fight,
+event, or dungeon turn, almost never lasting more than fifteen minutes.
+Further specifics are provided in the time section of the game rules.</p>
+<p>Some powers <strong>Commit Effort for the day</strong>. Once Committed, this
+Effort can be recovered only after a comfortable night’s rest. If the PC
+is hungry, cold, sick, or sleeping without the benefits of a bedroll or
+other basic comforts, this Effort cannot be recovered.</p>
+<p>Activating a power only ever requires Committing a single point
+of Effort, unless the power itself says otherwise.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../01/03-backgrounds.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../01/05-the-class-list.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../01/03-backgrounds.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../01/05-the-class-list.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

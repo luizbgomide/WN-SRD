@@ -1,0 +1,26 @@
+[book]
+authors = ["Kevin Crawford"]
+language = "en"
+multilingual = false
+src = "src"
+title = "Worlds Without Number SRD v1.0"
+
+[build]
+build-dir = "../docs/wwn-srd/en"
+create-missing = false
+
+[output.html]
+additional-css = ["ep2e.css"]
+smart-punctuation = true
+no-section-label = false
+site-url = "/wwn-srd/en/"
+
+[output.html.print]
+enable = false
+
+[output.html.fold]
+enable = true
+
+[output.html.search]
+enable = true
+use-boolean-and = true

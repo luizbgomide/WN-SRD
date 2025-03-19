@@ -1,0 +1,448 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>The Class List - Worlds Without Number SRD v1.0</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="highlight-css" href="../highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="../tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../ep2e.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Worlds Without Number SRD v1.0</h1>
+
+                    <div class="right-buttons">
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="the-class-list"><a class="header" href="#the-class-list">The Class List</a></h1>
+<p>The classes that follow are flavor-stripped versions of those found in <strong>Worlds Without Number</strong> and its supplement, <strong>The Atlas of the Latter Earth</strong>. While mainstays such as the Warrior, the Expert, or the High Mage are appropriate to almost any fantasy setting, others may not fit specific campaigns. A GM always has the right to omit classes that do not fit the flavor of the game they are running.</p>
+<h2 id="the-adventurer"><a class="header" href="#the-adventurer">The Adventurer</a></h2>
+<p>Not every hero is perfectly reflected by one of the three main classes,
+even with the wide latitude of concepts each one allows. For those
+heroes that straddle the roles, there remains the class of Adventurer.</p>
+<p>An Adventurer picks two classes to reflect their own particular
+talents. A spell-slinging swordsman might choose to be a Partial
+Mage/Partial Warrior, while a stealthy assassin might be a Partial
+Expert/Partial Warrior, and a grifting mountebank-wizard might be
+a Partial Expert/Partial Mage. The player should pick whichever
+pairing serves best.</p>
+<p>The tables below provide the hit dice, attack bonus, and Foci picks
+gained by each of the three possible pairings. Thus, a first level Partial
+Expert/Partial Warrior would roll 1d6+2 for their hit points, have a
++1 attack bonus, and pick three Foci: one expert, one warrior, and
+one free pick.</p>
+<p>Adventurers tend to have a wider range of abilities than a more
+focused PC, and the extra Focus pick can make a significant difference
+at low levels. The absence of the strongest class abilities of Experts and
+Warriors make a difference in the longer run, however, and a Partial
+Mage will never attain the same magical power in their tradition as
+a focused specialist.</p>
+<h3 id="partial-expert"><a class="header" href="#partial-expert">Partial Expert</a></h3>
+<p>A Partial Expert is treated just as a full Expert, including gaining the
+benefits of the <strong>Quick Learner</strong> ability. They do not have the <strong>Masterful
+Expertise</strong> ability, however, as they lack the versatility of a full Expert.</p>
+<h3 id="partial-mage"><a class="header" href="#partial-mage">Partial Mage</a></h3>
+<p>A Partial Mage is treated as a Mage, and gains the <strong>Arcane Tradition</strong>
+ability, allowing them to pick a magical tradition for their powers. That
+tradition’s abilities will be more limited for Partial Mages, however,
+as described under each of the paths.</p>
+<p>It’s even possible for a PC to pick the Partial Mage class twice
+for two different magical traditions, gaining portions of both arcane
+powers. They then use the usual full Mage chart for hit dice, attack
+bonus, and Foci, and the spellcasting table for dual casters if both
+partial classes cast spells.</p>
+<p>A Partial Mage must adhere to the restrictions and limits of their
+magical tradition in order to use its abilities, regardless of whatever
+other partial class they may have.</p>
+<h3 id="partial-warrior"><a class="header" href="#partial-warrior">Partial Warrior</a></h3>
+<p>A Partial Warrior gains certain of the benefits of a full Warrior, including the improved hit die and a somewhat improved attack bonus.
+They do not have the <strong>Veteran’s Luck</strong> special ability or the <strong>Killing Blow</strong> power, however, and must trust to their own talents to land
+blows and crush their enemies.</p>
+<blockquote class="table">
+<h3 id="partial-expertpartial-warrior"><a class="header" href="#partial-expertpartial-warrior">Partial Expert/Partial Warrior</a></h3>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: center">Level</th><th style="text-align: center">Hit Dice</th><th style="text-align: center">Attack Bonus</th><th style="text-align: center">Focus Picks</th></tr></thead><tbody>
+<tr><td style="text-align: center">1</td><td style="text-align: center">1d6+2</td><td style="text-align: center">+1</td><td style="text-align: center">1 Expert + 1 Warrior + 1 Any</td></tr>
+<tr><td style="text-align: center">2</td><td style="text-align: center">2d6+4</td><td style="text-align: center">+2</td><td style="text-align: center">+1 Any</td></tr>
+<tr><td style="text-align: center">3</td><td style="text-align: center">3d6+6</td><td style="text-align: center">+2</td><td style="text-align: center"></td></tr>
+<tr><td style="text-align: center">4</td><td style="text-align: center">4d6+8</td><td style="text-align: center">+3</td><td style="text-align: center"></td></tr>
+<tr><td style="text-align: center">5</td><td style="text-align: center">5d6+10</td><td style="text-align: center">+4</td><td style="text-align: center">+1 Any</td></tr>
+<tr><td style="text-align: center">6</td><td style="text-align: center">6d6+12</td><td style="text-align: center">+5</td><td style="text-align: center"></td></tr>
+<tr><td style="text-align: center">7</td><td style="text-align: center">7d6+14</td><td style="text-align: center">+5</td><td style="text-align: center">+1 Any</td></tr>
+<tr><td style="text-align: center">8</td><td style="text-align: center">8d6+16</td><td style="text-align: center">+6</td><td style="text-align: center"></td></tr>
+<tr><td style="text-align: center">9</td><td style="text-align: center">9d6+18</td><td style="text-align: center">+6</td><td style="text-align: center"></td></tr>
+<tr><td style="text-align: center">10</td><td style="text-align: center">10d6+20</td><td style="text-align: center">+7</td><td style="text-align: center">+1 Any</td></tr>
+</tbody></table>
+</div></blockquote>
+<blockquote class="table">
+<h3 id="partial-expertpartial-mage"><a class="header" href="#partial-expertpartial-mage">Partial Expert/Partial Mage</a></h3>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: center">Level</th><th style="text-align: center">Hit Dice</th><th style="text-align: center">Attack Bonus</th><th style="text-align: center">Focus Picks</th></tr></thead><tbody>
+<tr><td style="text-align: center">1</td><td style="text-align: center">1d6</td><td style="text-align: center">+0</td><td style="text-align: center">1 Expert + 1 Any</td></tr>
+<tr><td style="text-align: center">2</td><td style="text-align: center">2d6</td><td style="text-align: center">+1</td><td style="text-align: center">+1 Any</td></tr>
+<tr><td style="text-align: center">3</td><td style="text-align: center">3d6</td><td style="text-align: center">+1</td><td style="text-align: center"></td></tr>
+<tr><td style="text-align: center">4</td><td style="text-align: center">4d6</td><td style="text-align: center">+2</td><td style="text-align: center"></td></tr>
+<tr><td style="text-align: center">5</td><td style="text-align: center">5d6</td><td style="text-align: center">+2</td><td style="text-align: center">+1 Any</td></tr>
+<tr><td style="text-align: center">6</td><td style="text-align: center">6d6</td><td style="text-align: center">+3</td><td style="text-align: center"></td></tr>
+<tr><td style="text-align: center">7</td><td style="text-align: center">7d6</td><td style="text-align: center">+3</td><td style="text-align: center">+1 Any</td></tr>
+<tr><td style="text-align: center">8</td><td style="text-align: center">8d6</td><td style="text-align: center">+4</td><td style="text-align: center"></td></tr>
+<tr><td style="text-align: center">9</td><td style="text-align: center">9d6</td><td style="text-align: center">+4</td><td style="text-align: center"></td></tr>
+<tr><td style="text-align: center">10</td><td style="text-align: center">10d6</td><td style="text-align: center">+5</td><td style="text-align: center">+1 Any</td></tr>
+</tbody></table>
+</div></blockquote>
+<blockquote class="table">
+<h3 id="partial-magepartial-warrior"><a class="header" href="#partial-magepartial-warrior">Partial Mage/Partial Warrior</a></h3>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: center">Level</th><th style="text-align: center">Hit Dice</th><th style="text-align: center">Attack Bonus</th><th style="text-align: center">Focus Picks</th></tr></thead><tbody>
+<tr><td style="text-align: center">1</td><td style="text-align: center">1d6+2</td><td style="text-align: center">+1</td><td style="text-align: center">1 Warrior + 1 Any</td></tr>
+<tr><td style="text-align: center">2</td><td style="text-align: center">2d6+4</td><td style="text-align: center">+2</td><td style="text-align: center">+1 Any</td></tr>
+<tr><td style="text-align: center">3</td><td style="text-align: center">3d6+6</td><td style="text-align: center">+2</td><td style="text-align: center"></td></tr>
+<tr><td style="text-align: center">4</td><td style="text-align: center">4d6+8</td><td style="text-align: center">+3</td><td style="text-align: center"></td></tr>
+<tr><td style="text-align: center">5</td><td style="text-align: center">5d6+10</td><td style="text-align: center">+4</td><td style="text-align: center">+1 Any</td></tr>
+<tr><td style="text-align: center">6</td><td style="text-align: center">6d6+12</td><td style="text-align: center">+5</td><td style="text-align: center"></td></tr>
+<tr><td style="text-align: center">7</td><td style="text-align: center">7d6+14</td><td style="text-align: center">+5</td><td style="text-align: center">+1 Any</td></tr>
+<tr><td style="text-align: center">8</td><td style="text-align: center">8d6+16</td><td style="text-align: center">+6</td><td style="text-align: center"></td></tr>
+<tr><td style="text-align: center">9</td><td style="text-align: center">9d6+18</td><td style="text-align: center">+6</td><td style="text-align: center"></td></tr>
+<tr><td style="text-align: center">10</td><td style="text-align: center">10d6+20</td><td style="text-align: center">+7</td><td style="text-align: center">+1 Any</td></tr>
+</tbody></table>
+</div></blockquote>
+<h2 id="the-accursed"><a class="header" href="#the-accursed">The Accursed</a></h2>
+<p>The Accursed are those men and women who have made pacts
+with otherworldly beings, intentionally or otherwise, and gained
+powers from that bond.</p>
+<h3 id="benefits-of-the-accursed"><a class="header" href="#benefits-of-the-accursed">Benefits of the Accursed</a></h3>
+<p>The Accursed is a partial Mage class that must be joined with a
+second partial class by an Adventurer. A Partial Warrior/Accursed
+might be a grim demonic warrior, a Partial Expert/Accursed might
+be a sinister tempter, while a Partial Mage/Accursed could be a
+sorcerer willing to pact with foul creatures for their powers.</p>
+<p>All Accursed gain Magic-0 during character creation. Even
+those who are not spellcasters must understand the ways of eldritch
+beings and the subtleties of sorcery.</p>
+<p>While the arts of <strong>Accursed Blade</strong> and <strong>Accursed Bolt</strong> use
+Magic as their combat skill, Foci that normally apply to mundane
+weapons such as Armsmaster or Deadeye also benefit their relevant
+melee or ranged attacks. For these Foci, read “Magic” in place
+of “Shoot” or “Stab” when gaining their benefits, including the
+granted skill and the stacking damage bonus that the first level of
+the Focus may grant.</p>
+<blockquote class="table">
+<h3 id="partial-expertaccursed"><a class="header" href="#partial-expertaccursed">Partial Expert/Accursed</a></h3>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: center">Level</th><th style="text-align: center">Hit Dice</th><th style="text-align: center">Attack Bonus</th><th style="text-align: center">Focus Picks</th></tr></thead><tbody>
+<tr><td style="text-align: center">1</td><td style="text-align: center">1d6</td><td style="text-align: center">+0</td><td style="text-align: center">1 Expert + 1 Any</td></tr>
+<tr><td style="text-align: center">2</td><td style="text-align: center">2d6</td><td style="text-align: center">+1</td><td style="text-align: center">+1 Any</td></tr>
+<tr><td style="text-align: center">3</td><td style="text-align: center">3d6</td><td style="text-align: center">+1</td><td style="text-align: center"></td></tr>
+<tr><td style="text-align: center">4</td><td style="text-align: center">4d6</td><td style="text-align: center">+2</td><td style="text-align: center"></td></tr>
+<tr><td style="text-align: center">5</td><td style="text-align: center">5d6</td><td style="text-align: center">+2</td><td style="text-align: center">+1 Any</td></tr>
+<tr><td style="text-align: center">6</td><td style="text-align: center">6d6</td><td style="text-align: center">+3</td><td style="text-align: center"></td></tr>
+<tr><td style="text-align: center">7</td><td style="text-align: center">7d6</td><td style="text-align: center">+3</td><td style="text-align: center">+1 Any</td></tr>
+<tr><td style="text-align: center">8</td><td style="text-align: center">8d6</td><td style="text-align: center">+4</td><td style="text-align: center"></td></tr>
+<tr><td style="text-align: center">9</td><td style="text-align: center">9d6</td><td style="text-align: center">+4</td><td style="text-align: center"></td></tr>
+<tr><td style="text-align: center">10</td><td style="text-align: center">10d6</td><td style="text-align: center">+5</td><td style="text-align: center">+1 Any</td></tr>
+</tbody></table>
+</div></blockquote>
+<blockquote class="table">
+<h3 id="partial-mageaccursed"><a class="header" href="#partial-mageaccursed">Partial Mage/Accursed</a></h3>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: center">Level</th><th style="text-align: center">Hit Dice</th><th style="text-align: center">Attack Bonus</th><th style="text-align: center">Focus Picks</th></tr></thead><tbody>
+<tr><td style="text-align: center">1</td><td style="text-align: center">1d6-1</td><td style="text-align: center">+0</td><td style="text-align: center">1 Any</td></tr>
+<tr><td style="text-align: center">2</td><td style="text-align: center">2d6-2</td><td style="text-align: center">+0</td><td style="text-align: center">+1 Any</td></tr>
+<tr><td style="text-align: center">3</td><td style="text-align: center">3d6-3</td><td style="text-align: center">+0</td><td style="text-align: center"></td></tr>
+<tr><td style="text-align: center">4</td><td style="text-align: center">4d6-4</td><td style="text-align: center">+0</td><td style="text-align: center"></td></tr>
+<tr><td style="text-align: center">5</td><td style="text-align: center">5d6-5</td><td style="text-align: center">+1</td><td style="text-align: center">+1 Any</td></tr>
+<tr><td style="text-align: center">6</td><td style="text-align: center">6d6-6</td><td style="text-align: center">+1</td><td style="text-align: center"></td></tr>
+<tr><td style="text-align: center">7</td><td style="text-align: center">7d6-7</td><td style="text-align: center">+1</td><td style="text-align: center">+1 Any</td></tr>
+<tr><td style="text-align: center">8</td><td style="text-align: center">8d6-8</td><td style="text-align: center">+1</td><td style="text-align: center"></td></tr>
+<tr><td style="text-align: center">9</td><td style="text-align: center">9d6-9</td><td style="text-align: center">+1</td><td style="text-align: center"></td></tr>
+<tr><td style="text-align: center">10</td><td style="text-align: center">10d6-10</td><td style="text-align: center">+2</td><td style="text-align: center">+1 Any</td></tr>
+</tbody></table>
+</div></blockquote>
+<blockquote class="table">
+<h3 id="partial-warrioraccursed"><a class="header" href="#partial-warrioraccursed">Partial Warrior/Accursed</a></h3>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: center">Level</th><th style="text-align: center">Hit Dice</th><th style="text-align: center">Attack Bonus</th><th style="text-align: center">Focus Picks</th></tr></thead><tbody>
+<tr><td style="text-align: center">1</td><td style="text-align: center">1d6+2</td><td style="text-align: center">+1</td><td style="text-align: center">1 Warrior + 1 Any</td></tr>
+<tr><td style="text-align: center">2</td><td style="text-align: center">2d6+4</td><td style="text-align: center">+2</td><td style="text-align: center">+1 Any</td></tr>
+<tr><td style="text-align: center">3</td><td style="text-align: center">3d6+6</td><td style="text-align: center">+2</td><td style="text-align: center"></td></tr>
+<tr><td style="text-align: center">4</td><td style="text-align: center">4d6+8</td><td style="text-align: center">+3</td><td style="text-align: center"></td></tr>
+<tr><td style="text-align: center">5</td><td style="text-align: center">5d6+10</td><td style="text-align: center">+4</td><td style="text-align: center">+1 Any</td></tr>
+<tr><td style="text-align: center">6</td><td style="text-align: center">6d6+12</td><td style="text-align: center">+5</td><td style="text-align: center"></td></tr>
+<tr><td style="text-align: center">7</td><td style="text-align: center">7d6+14</td><td style="text-align: center">+5</td><td style="text-align: center">+1 Any</td></tr>
+<tr><td style="text-align: center">8</td><td style="text-align: center">8d6+16</td><td style="text-align: center">+6</td><td style="text-align: center"></td></tr>
+<tr><td style="text-align: center">9</td><td style="text-align: center">9d6+18</td><td style="text-align: center">+6</td><td style="text-align: center"></td></tr>
+<tr><td style="text-align: center">10</td><td style="text-align: center">10d6+20</td><td style="text-align: center">+7</td><td style="text-align: center">+1 Any</td></tr>
+</tbody></table>
+</div></blockquote>
+<h3 id="accursed-arts"><a class="header" href="#accursed-arts">Accursed Arts</a></h3>
+<p>An Accursed has an Effort score equal to their Magic skill level plus
+their Intelligence or Charisma modifier, to a minimum of one point.
+Every Accursed gains either <strong>Accursed Bolt</strong> or <strong>Accursed Blade</strong>
+as a starting art, plus one more of their choice. Accursed arts may
+be used in or out of armor.</p>
+<p><strong>Accursed Blade:</strong> As an On Turn action, manifest an occult melee
+weapon as a one-handed 1d8 weapon or a two-handed 2d6
+weapon. Both add your Magic skill to the damage roll, have a
+Shock rating of 2/15, and use Magic as the attack skill and the
+best of Str, Dex, Int, or Cha as its modifying attribute.</p>
+<p><strong>Accursed Bolt:</strong> As Accursed Blade, but you launch blasts of occult
+force instead of meleeing. Their damage is 1d8 plus your Magic
+skill, their range is 200’, and the bolts can be thrown in melee at
+a -4 penalty to hit. These bolts need both hands free to hurl them.</p>
+<p><strong>Bewitching Distraction:</strong> Commit Effort for the day as a Main
+Action when talking to an intelligent target when not in combat.
+They must make a Mental save or become dazed, oblivious to their
+surroundings and forgetting you and all else that happened in that
+scene. Danger ends the daze but not the forgetting.</p>
+<p><strong>Compelling Shriek:</strong> Once per scene, Commit Effort for the day as
+a Main Action and shout a command of no more than seven words.
+Chosen targets who hear and understand must make a Mental
+save or perform that action for one round, provided it is not totally
+contrary to their character.</p>
+<p><strong>Devil’s Bargain:</strong> As a Main Action, consecrate a deal you’ve
+made with an uncoerced person. If they violate the deal or its
+spirit, you know instantly and may inflict 1d6 damage per level
+on them if desired.</p>
+<p><strong>Dire Pact:</strong> Foes suffer a penalty equal to your Magic skill on all
+saves versus your Accursed arts. If they succeed, however, you
+gain one System Strain.</p>
+<p><strong>Lying Face:</strong> Commit Effort as a Main Action; while it remains Committed, you can disguise yourself as any humanoid of the same
+general size, including clothing, scent, and voice.</p>
+<p><strong>Night-Black Eyes:</strong> You can see clearly in perfect darkness. As a Main Action, focus on a particular visible object, person, or location; you can tell if it is enchanted, though no details about the
+magic are seen.</p>
+<p><strong>Pacted Protection:</strong> Choose a type of harmful energy: fire, frost,
+acid, electricity, or the like. You become immune to natural degrees of this energy and take half damage from magical attacks
+involving it.</p>
+<p><strong>Rob Vitality:</strong> Once per scene, as an On Turn action, Commit Effort
+for the scene and target a visible foe. They must make a Physical
+save or lose their next Main Action, which you immediately gain
+instead.</p>
+<p><strong>Scourging Curse:</strong> Commit Effort for the scene as a Main Action
+and target a visible foe. Your curse inflicts a -1 penalty to their hit,
+damage, and saving throw rolls for one round per level. At 4th level
+this penalty becomes -2, and at 9th it becomes -3. Only one such
+curse can be active at a given time.</p>
+<p><strong>Shadowed Steps:</strong> As a Move Action, Commit Effort for the scene
+and teleport up to your Move distance. You cannot bypass walls
+or physical obstacles, but you can teleport vertically or into high
+places.</p>
+<p><strong>Snaring Speech:</strong> Once per round as an Instant action, Commit
+Effort for the day when failing a skill check to persuade or tempt
+someone. They must make a Mental save or agree with your proposal if it’s something they would normally consider doing. Gain
+one System Strain when using this art.</p>
+<p><strong>Sorcerous Battery:</strong> Once per day, as an On Turn action, Commit
+Effort for the day. You or a visible ally refresh the spell slot of a
+spell that has been cast since the start of the prior round. Gain one
+System Strain.</p>
+<p><strong>Soul Consumption:</strong> As an Instant action, Commit Effort for the day
+when you fell an intelligent target with Accursed Bolt or Accursed
+Blade. They die instantly. You heal 1d6 hit points plus your level
+and lose one accumulated System Strain.</p>
+<p><strong>Tendrils of Night:</strong> Commit Effort as an On Turn action. While
+Committed, you exude numerous tentacles or eldritch arms that can
+manipulate objects with your strength up to 20’ away. You gain no
+bonus actions, but the arms can melee at range. These arms have
+your AC, and you are damaged if they are hurt.</p>
+<p><strong>Unseen Steps:</strong> As an On Turn action, Commit Effort for the day to
+turn invisible for 1d6 rounds plus your level. This invisibility breaks
+before you attack, cast spells, or perform other vigorous or violent
+actions.</p>
+<p><strong>Weight of Sin:</strong> As a Main Action, Commit Effort for the day and
+target a visible foe. They must make a Physical save or lose their
+Move action for 1d6 rounds plus your level.</p>
+<p><strong>Weeping Wounds:</strong> Once per round, Commit Effort for the scene
+as an Instant action when a visible enemy takes damage. They
+must make a Physical save or suffer 1d6 damage per round for
+one round per level. They cannot heal or regenerate any hit point
+damage during this effect. This art does not stack.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../01/04-classes.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../01/04-classes.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+            </nav>
+
+        </div>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>
