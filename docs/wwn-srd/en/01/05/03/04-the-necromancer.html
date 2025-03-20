@@ -1,0 +1,341 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>The Necromancer - Worlds Without Number SRD v1.0</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../../../favicon.svg">
+        <link rel="shortcut icon" href="../../../favicon.png">
+        <link rel="stylesheet" href="../../../css/variables.css">
+        <link rel="stylesheet" href="../../../css/general.css">
+        <link rel="stylesheet" href="../../../css/chrome.css">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="highlight-css" href="../../../highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="../../../tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="../../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../../../ep2e.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../../../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../../../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Worlds Without Number SRD v1.0</h1>
+
+                    <div class="right-buttons">
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="the-necromancer"><a class="header" href="#the-necromancer">The Necromancer</a></h1>
+<p>Necromancers are those spellcasting Mages who deal with the
+energies of life and death.</p>
+<h2 id="necromancer-benefits"><a class="header" href="#necromancer-benefits">Necromancer Benefits</a></h2>
+<p>All Necromancers gain Magic as a bonus skill, acquiring it at level-0, or level-1 if was already level-0.</p>
+<p>Necromancers can prepare and cast High Magic spells in addition to the spells specific to Necromancers. Some of the latter are
+given on the following pages, but others doubtless exist. As usual
+for spellcasters, Necromancers can’t cast spells or use arts while
+armored or holding a shield.</p>
+<p>Necromancers are not as talented at general High Magic research as High Mages are, but their studies still bear fruit in time.
+Each time they advance a level, they can pick a new High Magic
+spell or a Necromancer spell to add to their spellbook. They must
+be able to cast the spell to add it to their selection.</p>
+<p>Necromancers can pick an art specific to their tradition from the
+adjacent list. Further arts are learned as they advance in character
+level, as given in the tables below. Once chosen, an art cannot
+be changed.</p>
+<h2 id="necromancer-arts"><a class="header" href="#necromancer-arts">Necromancer Arts</a></h2>
+<p>Necromancer Effort is calculated as usual, with each PC’s maximum
+being equal to one plus their Magic skill level plus the better of their
+Intelligence or Charisma modifiers. Partial Necromancers have a
+score one point lower than this, albeit not less than one.</p>
+<blockquote class="table">
+<h3 id="full-necromancer-arts-and-spells"><a class="header" href="#full-necromancer-arts-and-spells">Full Necromancer Arts and Spells</a></h3>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: center">Level</th><th style="text-align: center">Max Level</th><th style="text-align: center">Spells Cast</th><th style="text-align: center">Spells Prepared</th><th style="text-align: left">Arts Gained</th></tr></thead><tbody>
+<tr><td style="text-align: center">1</td><td style="text-align: center">1</td><td style="text-align: center">1</td><td style="text-align: center">3</td><td style="text-align: left">Any Two</td></tr>
+<tr><td style="text-align: center">2</td><td style="text-align: center">1</td><td style="text-align: center">1</td><td style="text-align: center">3</td><td style="text-align: left">Any One</td></tr>
+<tr><td style="text-align: center">3</td><td style="text-align: center">2</td><td style="text-align: center">2</td><td style="text-align: center">4</td><td style="text-align: left"></td></tr>
+<tr><td style="text-align: center">4</td><td style="text-align: center">2</td><td style="text-align: center">2</td><td style="text-align: center">5</td><td style="text-align: left">Any One</td></tr>
+<tr><td style="text-align: center">5</td><td style="text-align: center">3</td><td style="text-align: center">3</td><td style="text-align: center">6</td><td style="text-align: left"></td></tr>
+<tr><td style="text-align: center">6</td><td style="text-align: center">3</td><td style="text-align: center">3</td><td style="text-align: center">7</td><td style="text-align: left">Any One</td></tr>
+<tr><td style="text-align: center">7</td><td style="text-align: center">4</td><td style="text-align: center">4</td><td style="text-align: center">8</td><td style="text-align: left"></td></tr>
+<tr><td style="text-align: center">8</td><td style="text-align: center">4</td><td style="text-align: center">4</td><td style="text-align: center">9</td><td style="text-align: left">Any One</td></tr>
+<tr><td style="text-align: center">9</td><td style="text-align: center">5</td><td style="text-align: center">5</td><td style="text-align: center">10</td><td style="text-align: left"></td></tr>
+<tr><td style="text-align: center">10</td><td style="text-align: center">5</td><td style="text-align: center">6</td><td style="text-align: center">12</td><td style="text-align: left">Any One</td></tr>
+</tbody></table>
+</div></blockquote>
+<blockquote class="table">
+<h3 id="partial-necromancer-arts-and-spells"><a class="header" href="#partial-necromancer-arts-and-spells">Partial Necromancer Arts and Spells</a></h3>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: center">Level</th><th style="text-align: center">Max Level</th><th style="text-align: center">Spells Cast</th><th style="text-align: center">Spells Prepared</th><th style="text-align: left">Arts Gained</th></tr></thead><tbody>
+<tr><td style="text-align: center">1</td><td style="text-align: center">1</td><td style="text-align: center">1</td><td style="text-align: center">2</td><td style="text-align: left">Any One</td></tr>
+<tr><td style="text-align: center">2</td><td style="text-align: center">1</td><td style="text-align: center">1</td><td style="text-align: center">3</td><td style="text-align: left">Any One</td></tr>
+<tr><td style="text-align: center">3</td><td style="text-align: center">1</td><td style="text-align: center">1</td><td style="text-align: center">3</td><td style="text-align: left">Any One</td></tr>
+<tr><td style="text-align: center">4</td><td style="text-align: center">1</td><td style="text-align: center">2</td><td style="text-align: center">4</td><td style="text-align: left"></td></tr>
+<tr><td style="text-align: center">5</td><td style="text-align: center">2</td><td style="text-align: center">2</td><td style="text-align: center">5</td><td style="text-align: left"></td></tr>
+<tr><td style="text-align: center">6</td><td style="text-align: center">2</td><td style="text-align: center">3</td><td style="text-align: center">6</td><td style="text-align: left">Any One</td></tr>
+<tr><td style="text-align: center">7</td><td style="text-align: center">2</td><td style="text-align: center">3</td><td style="text-align: center">7</td><td style="text-align: left"></td></tr>
+<tr><td style="text-align: center">8</td><td style="text-align: center">2</td><td style="text-align: center">3</td><td style="text-align: center">7</td><td style="text-align: left"></td></tr>
+<tr><td style="text-align: center">9</td><td style="text-align: center">3</td><td style="text-align: center">4</td><td style="text-align: center">8</td><td style="text-align: left">Any One</td></tr>
+<tr><td style="text-align: center">10</td><td style="text-align: center">3</td><td style="text-align: center">4</td><td style="text-align: center">9</td><td style="text-align: left"></td></tr>
+</tbody></table>
+</div></blockquote>
+<p><strong>Bonetalker:</strong> You can see and communicate with any undead creature, regardless of a shared language or the creature’s natural state
+of invisibility. By Committing Effort for the scene you can sense the
+surface thoughts of any visible undead, including an impression
+of any commands or behavior it has been ordered to carry out.
+Unintelligent undead will not attack you or your companions unless
+specifically compelled to do so by a command or a master. Even
+intelligent undead will generally pause at least for an initial parley
+before attacking.</p>
+<p><strong>Cold Flesh:</strong> You no longer require sleep and feel pain only in an
+abstract sense. You can suffer no more than 2 points of damage
+from any given instance of Shock and you have a natural Armor
+Class equal to 12 plus half your level, rounded down.</p>
+<p><strong>Consume Life Energy:</strong> By making a Punch attack or using a melee
+weapon you have spent at least an hour properly consecrating,
+you can absorb a portion of the damage you inflict on others
+as healing to yourself. For each successful attack you make with
+such implements, you heal 1d6 damage, up to a maximum of the
+damage done by the attack. You cannot drain more life than the
+target has remaining hit points.</p>
+<p><strong>False Death:</strong> Commit Effort as an Instant action; while it remains
+Committed you appear dead to all mundane examination. You
+lose your Main Actions while “dead”, but can move and perceive
+normally and do not need to eat, drink, breathe, or perform other
+bodily functions. Poisons and diseases do not progress in you while
+you are “dead”. You can maintain this state of death for up to one
+day per level before needing at least an hour to recover.</p>
+<p><strong>Gravesight:</strong> Commit Effort as an On Turn action; while it remains
+Committed, you can see the life energies of living creatures around
+you as various glowing patterns, regardless of the mundane illumination available. You can perceive sicknesses, poisons, and other physical qualities on sight. As a side effect of this ability, you can see
+normally even in perfect blackness.</p>
+<p><strong>Keeper of the Gate:</strong> At your discretion, creatures within twenty
+feet of you per character level that are Mortally Wounded will die
+instantly and cannot be revived by magic or medicine. Conversely,
+you can Commit Effort for the day to automatically stabilize any or
+all within that range, increasing their System Strain by 1 point. This
+benefit cannot aid creatures that have been dismembered, shredded,
+or otherwise suffered unsurvivable injuries.</p>
+<p><strong>Life Bridge:</strong> You can transfer life force between willing or helpless
+participants. Commit Effort for the day; for the rest of the scene, you
+can shift hit points from one willing or helpless target no smaller than
+a dog to another as a Main Action, provided you are touching both.
+You can shift enough hit points to Mortally Wound a donor, but you
+can’t give more to the recipient than would refresh their maximum
+allowed hit points.</p>
+<p><strong>Master of Bones:</strong> Undead must roll twice to save versus your abilities
+or spells and take the worse roll. You may Commit Effort for the scene
+as an Instant action to negate any single attack, magical power or
+spell an undead uses against you. Undead with more than twice as
+many hit dice as you have levels cannot be foiled this way.</p>
+<p><strong>Red Harvest:</strong> You are empowered by death. As an Instant action,
+whenever an intelligent living creature with at least one hit die perishes
+within fifty feet of you, Commit Effort for the day to either heal 1d6
+plus your level in lost hit points or gain a +4 bonus on your next hit
+roll this scene. This art cannot be stacked, and it can be used only
+once per round.</p>
+<p><strong>Unaging:</strong> You no longer naturally age, and will remain perfectly
+hale and vigorous up to your species’ natural maximum age plus
+20% per character level, after which you will collapse into dust and
+decay. Immortality beyond this point is possible, but generally requires consistent supplies of life energy, occult materials, or other difficult-to-acquire or morally questionable materials. You also become
+immune to poisons and diseases.</p>
+<p><strong>Uncanny Ichor:</strong> Your blood is not like the blood of normal beings.
+Predators find it nauseating and will not bite you unless provoked. Unintelligent predators will not consider you edible. This ichor is reluctant
+to leave your body, and stabbing or puncture injuries can Mortally
+Wound you but cannot result in your death unless you are entirely
+pincushioned by your foes or suffer catastrophic physical damage.</p>
+<p><strong>Unliving Persistence:</strong> Commit Effort for the day as an On Turn
+action to automatically stabilize when Mortally Wounded. You may
+use this ability to benefit others if you are able to touch them. This
+ability cannot save a subject that has experienced dismemberment
+or other extremely final deaths.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../../01/05/03/03-the-healer.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../../../01/05/03/05-the-vowed.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../../01/05/03/03-the-healer.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../../../01/05/03/05-the-vowed.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../../../elasticlunr.min.js"></script>
+        <script src="../../../mark.min.js"></script>
+        <script src="../../../searcher.js"></script>
+
+        <script src="../../../clipboard.min.js"></script>
+        <script src="../../../highlight.js"></script>
+        <script src="../../../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

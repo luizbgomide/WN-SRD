@@ -210,8 +210,6 @@ is hungry, cold, sick, or sleeping without the benefits of a bedroll or
 other basic comforts, this Effort cannot be recovered.</p>
 <p>Activating a power only ever requires Committing a single point
 of Effort, unless the power itself says otherwise.</p>
-<h2 id="the-class-list"><a class="header" href="#the-class-list">The Class List</a></h2>
-<p>The classes that follow are flavor-stripped versions of those found in <strong>Worlds Without Number</strong> and its supplement, <strong>The Atlas of the Latter Earth</strong>. While mainstays such as the Warrior, the Expert, or the High Mage are appropriate to almost any fantasy setting, others may not fit specific campaigns. A GM always has the right to omit classes that do not fit the flavor of the game they are running.</p>
 
                     </main>
 
@@ -221,7 +219,7 @@ of Effort, unless the power itself says otherwise.</p>
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../01/05-the-warrior.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../01/05/00-class-list.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -235,13 +233,29 @@ of Effort, unless the power itself says otherwise.</p>
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../01/05-the-warrior.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../01/05/00-class-list.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
 
         </div>
 
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
 
 
 

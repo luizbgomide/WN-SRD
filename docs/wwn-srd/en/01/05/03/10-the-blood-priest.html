@@ -1,0 +1,336 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>The Blood Priest - Worlds Without Number SRD v1.0</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../../../favicon.svg">
+        <link rel="shortcut icon" href="../../../favicon.png">
+        <link rel="stylesheet" href="../../../css/variables.css">
+        <link rel="stylesheet" href="../../../css/general.css">
+        <link rel="stylesheet" href="../../../css/chrome.css">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="highlight-css" href="../../../highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="../../../tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="../../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../../../ep2e.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../../../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../../../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Worlds Without Number SRD v1.0</h1>
+
+                    <div class="right-buttons">
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="the-blood-priest"><a class="header" href="#the-blood-priest">The Blood Priest</a></h1>
+<p>As the devotee of a sanguinary god, a blood priest has magical
+powers for strengthening and supporting their allies.</p>
+<h2 id="blood-priest-benefits"><a class="header" href="#blood-priest-benefits">Blood Priest Benefits</a></h2>
+<p>The Blood Priest exists only as a partial Mage class, to be taken by
+an Adventurer alongside another partial class. A Partial Warrior/
+Blood Priest might be a crusader for their god, wielding steel and
+terror against the evils of this world. A Partial Expert/Blood Priest
+might be an inquisitor, investigating dubious figures and sifting out
+the truth of mysterious events.</p>
+<p>All Blood Priests gain Pray as a bonus skill, acquiring it at level-0,
+or level-1 if they already have it at level-0. Even a “Blood Priest”
+who has only learned their abilities through study of their scriptures
+must master a wide variety of ecclesiastical rites and rituals in order
+to activate their powers.</p>
+<h2 id="blood-priest-arts"><a class="header" href="#blood-priest-arts">Blood Priest Arts</a></h2>
+<p>Blood Priest Effort is calculated with Pray, with their total maximum
+Effort being equal to their Pray skill plus the higher of their Wisdom
+or Charisma modifiers, to a minimum of one point.</p>
+<p>At first level, the Blood Priest may choose two of the following
+miracles to master, and gain more as they advance in levels. Once
+chosen, a miracle pick is permanent and cannot be changed later.
+Miracles are not hindered by the wearing of armor and require no
+gestures or free hand to employ, though usually a prayer must be
+vocalized as part of the action.</p>
+<blockquote class="table">
+<h2 id="blood-priest-arts-1"><a class="header" href="#blood-priest-arts-1">Blood Priest Arts</a></h2>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: center">Level</th><th style="text-align: left">Arts Gained</th></tr></thead><tbody>
+<tr><td style="text-align: center">1</td><td style="text-align: left">Any Two</td></tr>
+<tr><td style="text-align: center">2</td><td style="text-align: left">Any One</td></tr>
+<tr><td style="text-align: center">3</td><td style="text-align: left"></td></tr>
+<tr><td style="text-align: center">4</td><td style="text-align: left">Any One</td></tr>
+<tr><td style="text-align: center">5</td><td style="text-align: left">Any One</td></tr>
+<tr><td style="text-align: center">6</td><td style="text-align: left">Any One</td></tr>
+<tr><td style="text-align: center">7</td><td style="text-align: left"></td></tr>
+<tr><td style="text-align: center">8</td><td style="text-align: left">Any One</td></tr>
+<tr><td style="text-align: center">9</td><td style="text-align: left"></td></tr>
+<tr><td style="text-align: center">10</td><td style="text-align: left">Any One</td></tr>
+</tbody></table>
+</div></blockquote>
+<p><strong>A Thousand Tongues:</strong> Commit Effort as an On Turn action; while
+it remains Committed, you can speak with and understand any
+sentient creature with a language of their own. To any listener, it
+will seem as if you are perfectly fluent in their own language, even
+as you speak in your own native tongue. This ability does not allow
+you to read or write unknown languages.</p>
+<p><strong>Armor of God:</strong> Commit Effort as an On Turn action. While the
+Effort remains Committed, you have a natural Armor Class of 15
+plus half your level, rounded down. This AC can be modified by
+shields or your Dexterity modifier, but not by other worn armor.</p>
+<p><strong>Divine Guidance:</strong> Commit Effort for the day as a Main Action and
+meditate upon a choice or potential action before you. The GM will
+tell you whether the likely outcome of that choice is weal, woe, a
+mix of both, or nothing significant, using their own best estimation.
+This insight cannot perceive likely outcomes more than an hour or
+so into the future.</p>
+<p><strong>Fear No Flame:</strong> Commit Effort for the day as an On Turn action
+while nominating a visible target. For the rest of the scene, they are
+immune to non-magical flame, smoke, or explosive damage, and
+decrease any sources of such magical damage they take by five
+points per level of Pray you have.</p>
+<p><strong>God Wills It:</strong> Commit Effort for the day as an Instant action and
+loudly call down your god’s blessing on your comrades. For the
+rest of the scene, up to six allies per character level in earshot gain
+an effective Morale of 12 and a +1 bonus to hit and damage rolls,
+including any Shock that may be inflicted. At fifth level this becomes
+a +2 bonus, and at tenth level it becomes a +3 bonus.</p>
+<p><strong>Merciful Healing:</strong> Commit Effort for the day as a Main Action and
+touch a target within melee range. The target receives 1d6+2 points
+of magical healing. If done in combat or used to revive a Mortally
+Wounded subject, the rushed haste of the healing adds 1 System Strain to the target, but no System Strain is added if it is applied
+outside of combat. At fourth level the healing done increases to
+2d6+4 and at eighth level it becomes 4d6+8.</p>
+<p><strong>Sanctified Ward:</strong> Commit Effort as an On Turn action. While the
+Effort is maintained and until you take some hostile action against a
+creature, you are immune to Shock damage and gain a +4 bonus
+to your Armor Class and all saving throws. Enemies must pass an
+Instinct check each round to target you with attacks; on a failure,
+they may take some other action instead. Once this art is ended it
+cannot be reactivated for the rest of the scene. Healing and other
+indirect support of fighting comrades does not count as a hostile
+action.</p>
+<p><strong>Smite the Wicked:</strong> Commit Effort for the day as a On Turn action
+whenever you attack or take some damaging action toward a single
+target. You gain a +4 bonus to any hit roll, you inflict your character
+level as automatic damage, and you can roll any damage dice
+twice and take the higher result. This ability can only be used once
+per scene on a given target.</p>
+<p><strong>The Light of Faith:</strong> Commit Effort as an On Turn action; while it remains Committed, you can cast a clear, bright radiance that extends
+up to thirty feet away from you. At your discretion, this light is visible
+only to you and your comrades, including up to a dozen allies.</p>
+<p><strong>Transubstantiation:</strong> Commit Effort for the day as a Main Action to
+transform up to a gallon of any liquid into sacred blood. A draught
+of this holy liquid is sufficient to sustain a drinker for a day without
+further food or drink and will heal 1d6 plus the user’s Pray skill in
+lost hit points. A gallon of blood is sufficient to help a half-dozen
+people. The benefits of this art can be enjoyed only once per day,
+and any undrunk blood sublimates away within a minute.</p>
+<p><strong>Turn False Life:</strong> Commit Effort for the day as a Main Action and
+make the sign of your god before one or more visible targets within
+sixty feet. Roll 2d6 and add your character level; that many hit dice
+of undead, automatons, or other synthetic, extraplanar, or unnatural
+life forms must make Mental saving throws or cower for the rest of
+the scene or until they or their comrades are attacked. Cowering
+enemies will take no hostile action and may flee unless bound to
+their location. This power does not affect foes with twice as many
+hit dice as the blood priest has levels. If the rolled hit die total isn’t
+enough to fully affect a creature, it is unaffected.</p>
+<p><strong>Words of Mercy:</strong> Commit Effort for the day as an Instant action
+to reroll any failed social skill check related to maintaining peace,
+granting help, or encouraging virtuous acts of compassion, mercy,
+or truthfulness. This art can be used only once on any given skill
+check.</p>
+<p><strong>Wrath of the Most High:</strong> Commit Effort for the scene as a Main
+Action while you rebuke a visible target. The first time the target
+takes damage before the end of the next round, it suffers automatic
+additional damage equal to 1d8 plus your level.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../../01/05/03/09-the-beastmaster.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../../../01/05/03/11-the-thought-noble.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../../01/05/03/09-the-beastmaster.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../../../01/05/03/11-the-thought-noble.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../../../elasticlunr.min.js"></script>
+        <script src="../../../mark.min.js"></script>
+        <script src="../../../searcher.js"></script>
+
+        <script src="../../../clipboard.min.js"></script>
+        <script src="../../../highlight.js"></script>
+        <script src="../../../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

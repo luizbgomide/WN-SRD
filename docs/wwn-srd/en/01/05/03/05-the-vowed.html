@@ -1,0 +1,343 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>The Vowed - Worlds Without Number SRD v1.0</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../../../favicon.svg">
+        <link rel="shortcut icon" href="../../../favicon.png">
+        <link rel="stylesheet" href="../../../css/variables.css">
+        <link rel="stylesheet" href="../../../css/general.css">
+        <link rel="stylesheet" href="../../../css/chrome.css">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="highlight-css" href="../../../highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="../../../tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="../../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../../../ep2e.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../../../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../../../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Worlds Without Number SRD v1.0</h1>
+
+                    <div class="right-buttons">
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="the-vowed"><a class="header" href="#the-vowed">The Vowed</a></h1>
+<p>Adepts of fist and bodily discipline, the Vowed are a partial Mage
+class dedicated to unarmed combat, physical training, and mental
+discipline.</p>
+<h2 id="vowed-benefits"><a class="header" href="#vowed-benefits">Vowed Benefits</a></h2>
+<p>The Vowed class exists only as a partial Mage class, to be taken
+by an Adventurer along with another partial class. Thus, a Partial
+Warrior/Partial Vowed might be a hardened temple warrior-monk,
+a Partial Expert/Partial Vowed might be a sage teacher of religious
+or philosophical truths, and a Partial Elementalist/Partial Vowed
+might be a mountain sage who wields the elemental forces of nature.
+Regardless of classes, a Vowed’s hit dice can’t be worse than 1d6
+per level thanks to <strong>Martial Style</strong>.</p>
+<p>All Vowed gain a non-combat bonus skill appropriate to their
+order, acquiring it at level-0, or level-1 if they already have it at
+level-0. Orders that focus on physical training might grant Exert,
+while scholarly ones might give Know, religious ones Pray, or occult
+sects grant Magic. You may pick whatever non-combat skill suits
+your order, assuming the GM finds it reasonable.</p>
+<p>Vowed do not learn how to cast spells. Instead, they refine their
+inner powers and physical capabilities. These arts are too precise
+and delicate to bear the encumbrance of heavy clothing, armor,
+or shields, and cannot be used when so burdened. The <strong>Armored Magic</strong> Focus can mitigate this, but Vowed are all trained in effective
+unarmored defense techniques.</p>
+<p>At first level, a Vowed gains the <strong>Martial Style</strong>, <strong>Unarmed Might</strong>,
+and <strong>Unarmored Defense</strong> arts, in addition to one more art of their
+choice as given on the adjacent list. Further advancement will grant
+additional arts.</p>
+<h2 id="vowed-arts"><a class="header" href="#vowed-arts">Vowed Arts</a></h2>
+<p>Vowed Effort is based on the skill they chose to represent their
+order’s main focus of study, whether Exert, Know, Magic, Pray, or
+some more esoteric skill.</p>
+<p>Their maximum Vowed Effort is equal to this skill level plus their
+best attribute modifier, whatever it may be, to a minimum of one
+point. All Vowed automatically gain the Martial Style, Unarmed
+Might, and Unarmored Defense arts as part of their training.</p>
+<p><strong>Martial Style:</strong> Regardless of class, your hit die can’t be worse than
+1d6 per level. When attacking with the Punch skill, your class hit
+bonus can be no worse than that of an Expert of your same character level. At third level, any attack using the Punch skill counts
+as a magic weapon.</p>
+<p><strong>Unarmed Might:</strong> Your unarmed attack damage increases as you
+gain levels, as noted on the chart. You may add your Punch skill
+to the damage done by these attacks as usual, but Foci such as
+Unarmed Combatant that replace or improve your usual Punch
+damage do not apply to you.</p>
+<p><strong>Unarmored Defense:</strong> When not wearing armor or using a shield,
+your base Armor Class is equal to 13 plus half your character level,
+rounded down.</p>
+<blockquote class="table">
+<h3 id="vowed-arts-and-unarmed-abilities"><a class="header" href="#vowed-arts-and-unarmed-abilities">Vowed Arts and Unarmed Abilities</a></h3>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: center">Level</th><th style="text-align: center">Punch Hit Bonus</th><th style="text-align: center">Punch Damage</th><th style="text-align: center">Punch Shock</th><th style="text-align: left">Arts Gained</th></tr></thead><tbody>
+<tr><td style="text-align: center">1</td><td style="text-align: center">+0</td><td style="text-align: center">1d6</td><td style="text-align: center">1/15</td><td style="text-align: left">Martial Style, Unarmed Might, Unarmed Defense, and Any One</td></tr>
+<tr><td style="text-align: center">2</td><td style="text-align: center">+1</td><td style="text-align: center">1d6</td><td style="text-align: center">2/15</td><td style="text-align: left">Any One</td></tr>
+<tr><td style="text-align: center">3</td><td style="text-align: center">+1</td><td style="text-align: center">1d8</td><td style="text-align: center">2/15</td><td style="text-align: left"></td></tr>
+<tr><td style="text-align: center">4</td><td style="text-align: center">+2</td><td style="text-align: center">1d8</td><td style="text-align: center">2/15</td><td style="text-align: left">Any One</td></tr>
+<tr><td style="text-align: center">5</td><td style="text-align: center">+2</td><td style="text-align: center">1d10</td><td style="text-align: center">2/15</td><td style="text-align: left">Any One</td></tr>
+<tr><td style="text-align: center">6</td><td style="text-align: center">+3</td><td style="text-align: center">1d10</td><td style="text-align: center">3/15</td><td style="text-align: left">Any One</td></tr>
+<tr><td style="text-align: center">7</td><td style="text-align: center">+3</td><td style="text-align: center">1d10+1</td><td style="text-align: center">3/15</td><td style="text-align: left"></td></tr>
+<tr><td style="text-align: center">8</td><td style="text-align: center">+4</td><td style="text-align: center">1d10+1</td><td style="text-align: center">3/15</td><td style="text-align: left">Any One</td></tr>
+<tr><td style="text-align: center">9</td><td style="text-align: center">+4</td><td style="text-align: center">1d10+2</td><td style="text-align: center">4/15</td><td style="text-align: left"></td></tr>
+<tr><td style="text-align: center">10</td><td style="text-align: center">+5</td><td style="text-align: center">1d10+3</td><td style="text-align: center">4/15</td><td style="text-align: left">Any One</td></tr>
+</tbody></table>
+</div></blockquote>
+<p><strong>Brutal Counter:</strong> Commit Effort for the scene as an Instant action
+after resolving an enemy melee attack against you, whether it hits or
+misses. You may make a free physical attack against your assailant,
+using either a normal attack or some other offensive ability that takes no more than one Main Action to execute. You cannot use
+this art more than once per any given attack, but you may use it
+while performing a Total Defense.</p>
+<p><strong>Faultless Awareness:</strong> Your awareness is such that you cannot
+be surprised, and will even wake from a sound sleep in time to
+respond normally to some imminent peril.</p>
+<p><strong>Hurling Throw:</strong> After you make a successful attack, you may
+Commit Effort for the scene as an Instant action. The target must
+make a Physical saving throw or be thrown up to ten feet in any
+direction, falling prone on landing and suffering the damage rolled
+for your attack. If the Physical save is successful, the target simply
+takes damage as normal. This art can be used only once per round
+on any given target, and the target must be no larger than an ox.</p>
+<p><strong>The Inward Eye:</strong> Commit Effort as an On Turn action. For as long
+as it remains Committed, you are mystically aware of your surroundings with a sense equivalent to normal eyesight regardless
+of darkness, obscuring mists, or your actual eyes being closed or
+blinded.</p>
+<p><strong>Leap of the Heavens:</strong> Commit Effort for the scene as a Move
+action to leap up to your full Move action horizontally or half that
+vertically. You may also Commit Effort for the scene as an Instant
+action to negate falling damage, no matter the distance.</p>
+<p><strong>Master’s Vigor:</strong> Your body retains its vigor and youthful vitality to
+the full normal span of your life. You regain two lost hit points per
+hour due to your natural restorative powers.</p>
+<p><strong>Mob Justice:</strong> As an Instant action, Commit Effort for the day to become impervious to the Make a Swarm Attack maneuver. Your assailants cannot use this maneuver against you for the rest of the scene,
+and you become immune to Shock as long as you remain in melee
+with at least two foes. Making use of this benefit disrupts any spellcasting you may attempt, however, due to the violent motion required.</p>
+<p><strong>Nimble Ascent:</strong> Commit Effort for the scene as an On Turn action.
+For the remainder of the scene you may move up vertical and overhanging surfaces and across difficult terrain at your full movement
+rate with no chance of slipping or falling, provided the surface is not
+glass-smooth or enchanted. You require only one free hand to cling
+to a wall or ceiling.</p>
+<p><strong>Purified Body:</strong> You may Commit Effort for the day as an Instant action to cure any disease or poison currently affecting you, or instead
+to negate any need for sleep, food, water, or air for the next 24 hours.</p>
+<p><strong>Revivifying Breath:</strong> Commit Effort for the day as an On Turn action
+to heal yourself for 1d6 hit points plus your level. This healing does
+not increase System Strain. This ability may be used on your turn even
+when you are at zero hit points, but in such a case it Commits all your
+remaining Effort for the day. This art can be used once per scene.</p>
+<p><strong>Shattering Strike:</strong> Commit Effort for the day and take a full round
+of motionlessness to prepare. On the next round, as a Main Action,
+your unarmed attack can shatter a wooden door, wooden wall, or
+other similar object up to a depth of one foot per level and a width
+sufficient to allow a man-sized creature to pass through. At fourth
+level this ability improves to affect even a stone wall and at seventh
+it can affect even a metal wall or solid iron door. The blow is useless
+against a target that can move, but against an immobilized creature
+the attack does 1d12 damage per character level.</p>
+<p><strong>Style Weaponry:</strong> Pick three general classes of weapons, such as
+“swords”, “bows”, “axes”, “daggers”, or the like. When using weapons of those classes, you may use Punch for hit rolls instead of Stab
+or Shoot. Your Punch skill does not add to the damage done by
+these weapons, however, though the benefits of Martial Style apply
+to their hit rolls.</p>
+<p><strong>Unobtrusive Step:</strong> You not only possess a considerable skill for
+disguise and obfuscation, you can become extremely hard to detect.
+Once per scene, you may Commit Effort for the day as an Instant
+action to reroll a failed Sneak skill check or skill check related to
+impersonating someone else.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../../01/05/03/04-the-necromancer.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../../../01/05/03/06-the-invoker.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../../01/05/03/04-the-necromancer.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../../../01/05/03/06-the-invoker.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../../../elasticlunr.min.js"></script>
+        <script src="../../../mark.min.js"></script>
+        <script src="../../../searcher.js"></script>
+
+        <script src="../../../clipboard.min.js"></script>
+        <script src="../../../highlight.js"></script>
+        <script src="../../../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

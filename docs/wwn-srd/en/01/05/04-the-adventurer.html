@@ -12,32 +12,32 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
 
-        <link rel="icon" href="../favicon.svg">
-        <link rel="shortcut icon" href="../favicon.png">
-        <link rel="stylesheet" href="../css/variables.css">
-        <link rel="stylesheet" href="../css/general.css">
-        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="icon" href="../../favicon.svg">
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
 
         <!-- Fonts -->
-        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
-        <link rel="stylesheet" href="../fonts/fonts.css">
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../fonts/fonts.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" id="highlight-css" href="../highlight.css">
-        <link rel="stylesheet" id="tomorrow-night-css" href="../tomorrow-night.css">
-        <link rel="stylesheet" id="ayu-highlight-css" href="../ayu-highlight.css">
+        <link rel="stylesheet" id="highlight-css" href="../../highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="../../tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="../../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
-        <link rel="stylesheet" href="../ep2e.css">
+        <link rel="stylesheet" href="../../ep2e.css">
 
 
         <!-- Provide site root to javascript -->
         <script>
-            var path_to_root = "../";
+            var path_to_root = "../../";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc.js"></script>
+        <script src="../../toc.js"></script>
     </head>
     <body>
     <div id="body-container">
@@ -89,7 +89,7 @@
             <!-- populated by js -->
             <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
             <noscript>
-                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+                <iframe class="sidebar-iframe-outer" src="../../toc.html"></iframe>
             </noscript>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -241,11 +241,11 @@ blows and crush their enemies.</p>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../01/07-the-mage.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../../01/05/03/12-the-accursed.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../01/09-foci.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../../01/06-foci.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -255,17 +255,33 @@ blows and crush their enemies.</p>
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../01/07-the-mage.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../../01/05/03/12-the-accursed.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../01/09-foci.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../../01/06-foci.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
 
         </div>
 
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
 
 
 
@@ -274,13 +290,13 @@ blows and crush their enemies.</p>
         </script>
 
 
-        <script src="../elasticlunr.min.js"></script>
-        <script src="../mark.min.js"></script>
-        <script src="../searcher.js"></script>
+        <script src="../../elasticlunr.min.js"></script>
+        <script src="../../mark.min.js"></script>
+        <script src="../../searcher.js"></script>
 
-        <script src="../clipboard.min.js"></script>
-        <script src="../highlight.js"></script>
-        <script src="../book.js"></script>
+        <script src="../../clipboard.min.js"></script>
+        <script src="../../highlight.js"></script>
+        <script src="../../book.js"></script>
 
         <!-- Custom JS scripts -->
 
