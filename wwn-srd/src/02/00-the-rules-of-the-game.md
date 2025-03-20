@@ -1,0 +1,8 @@
+# The Rules of the Game
+
+This section summarizes the rules of the game. They are intended to be
+functional for the average play group with typical needs; individual
+GMs may find it useful to alter them based on the specific interests
+or makeup of their own player group.
+
+<!-- TOC PLACEHOLDER -->
