@@ -14,25 +14,26 @@ function readDirectory(dir) {
     let sortByTitle = dirList.find((file) => file.isFile() && file.name === sortByTitleFile);
     let tocFile = dirList.find((file) => file.isFile() && file.name.startsWith("00-") && path.extname(file.name) === ".md");
     let tocFileHeaders = "";
-    let result = "";
+    let result = [];
+    let sortedResult = [];
     dirList.forEach((item) => {
         let itemName = item.name;
+        let target = (sortByTitle && !/^\d\d-/.test(itemName)) ? sortedResult : result;
         if (item.isDirectory()) {
-            result += (readDirectory(path.posix.join(dir, itemName)));
+            target.push(readDirectory(path.posix.join(dir, itemName)));
         }
         if (tocFile && item.isFile() && path.extname(itemName) === ".md" && itemName !== summaryFile) {
             if (item === tocFile) {
                 tocFileHeaders = processFile(path.posix.join(dir, itemName));
             } else {
-                result += (processFile(path.posix.join(dir, itemName)));
+                target.push(processFile(path.posix.join(dir, itemName)));
             }
         }
     });
 
-    if (sortByTitle) {
-        //result.sort();
-    }
-    
+    sortedResult.sort();
+    result.push(...sortedResult);
+
     if (tocFile) {
         tocFile = path.resolve(path.posix.join(dir, tocFile.name));
         let contents = fs.readFileSync(tocFile, 'utf8');
@@ -40,13 +41,13 @@ function readDirectory(dir) {
         if (index >= 0) {
             contents = contents.substring(0, index + tocMarker.length) + '\n\n';
             process.stdout.write("Writing TOC for: " + tocFile + '\n');
-            fs.writeFileSync(tocFile, contents + result);
+            fs.writeFileSync(tocFile, contents + result.join(""));
         }
     }
-    
-    result = result.split("\n").map(line => line.length > 0 ? "  " + line : "").join("\n");
-    
-    return tocFileHeaders + result;
+
+    result = result.map(lines => lines.split("\n").map(l => l.length > 0 ? "  " + l : "").join("\n"));
+
+    return tocFileHeaders + result.join("");
 }
 
 function processFile(file) {
