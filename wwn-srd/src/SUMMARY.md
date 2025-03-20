@@ -1,6 +1,6 @@
 # Summary
 
-[An Introduction](_an-introduction.md)
+[An Introduction](-an-introduction.md)
 
 - [Character Creation](01/00-character-creation.md)
   - [Attributes](01/01-attributes.md)
