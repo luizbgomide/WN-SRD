@@ -6,28 +6,33 @@ const tocMarker = "<!-- TOC PLACEHOLDER -->";
 const headerRE = /^(\#+)\s+(.+)$/gm;
 const blockquoteRE = /\<blockquote.*?\<\/blockquote\>/gs;
 const summaryFile = "SUMMARY.md";
+const sortByTitleFile = ".sortByTitle"
 
 function readDirectory(dir) {
 
     let dirList = fs.readdirSync(dir, { withFileTypes: true }).sort();
-
+    let sortByTitle = dirList.find((file) => file.isFile() && file.name === sortByTitleFile);
     let tocFile = dirList.find((file) => file.isFile() && file.name.startsWith("00-") && path.extname(file.name) === ".md");
     let tocFileHeaders = "";
     let result = "";
     dirList.forEach((item) => {
         let itemName = item.name;
         if (item.isDirectory()) {
-            result += readDirectory(path.posix.join(dir, itemName));;
+            result += (readDirectory(path.posix.join(dir, itemName)));
         }
         if (tocFile && item.isFile() && path.extname(itemName) === ".md" && itemName !== summaryFile) {
             if (item === tocFile) {
                 tocFileHeaders = processFile(path.posix.join(dir, itemName));
             } else {
-                result += processFile(path.posix.join(dir, itemName));
+                result += (processFile(path.posix.join(dir, itemName)));
             }
         }
     });
 
+    if (sortByTitle) {
+        //result.sort();
+    }
+    
     if (tocFile) {
         tocFile = path.resolve(path.posix.join(dir, tocFile.name));
         let contents = fs.readFileSync(tocFile, 'utf8');
@@ -38,7 +43,10 @@ function readDirectory(dir) {
             fs.writeFileSync(tocFile, contents + result);
         }
     }
-    return tocFileHeaders + result.split("\n").map(line => line.length > 0 ? "  " + line : "").join("\n");
+    
+    result = result.split("\n").map(line => line.length > 0 ? "  " + line : "").join("\n");
+    
+    return tocFileHeaders + result;
 }
 
 function processFile(file) {
