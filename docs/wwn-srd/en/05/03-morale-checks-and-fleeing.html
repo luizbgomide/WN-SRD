@@ -1,0 +1,285 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Morale Checks and Fleeing - Worlds Without Number SRD v1.0</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="highlight-css" href="../highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="../tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../ep2e.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Worlds Without Number SRD v1.0</h1>
+
+                    <div class="right-buttons">
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="morale-checks-and-fleeing"><a class="header" href="#morale-checks-and-fleeing">Morale Checks and Fleeing</a></h1>
+<p>Sometimes, however, combat is inevitable. The raiders swoop down
+on the heroes, the savage beast pounces, or the vile necromancer
+runs out of small talk. Even after blades are drawn, however, the
+hostile NPCs might come to think better of their choices when they
+fail a Morale check.</p>
+<h2 id="making-a-morale-check"><a class="header" href="#making-a-morale-check">Making a Morale Check</a></h2>
+<p>A Morale check is made by rolling 2d6 and comparing it to the creature’s Morale score. If the roll is greater than the score, the creature
+loses heart and will seek to flee or stop the battle. PCs never make
+Morale checks and will fight on until they decide to flee.</p>
+<p>A Morale check is usually made under certain circumstances,
+though the GM can add to these whenever they think the situation
+calls for one. More than one Morale check may be needed in a fight
+if more than one condition occurs.</p>
+<ul>
+<li>When a non-combatant civilian is first faced with the prospect of serious physical harm.</li>
+<li>When the first member of a group is killed or rendered incapacitated.</li>
+<li>When the group starts to visibly lose the fight or see their odds of victory considerably shrink.</li>
+<li>When the group faces some terrifying work of magic, a horrendous slaughter, or a vastly superior foe.</li>
+</ul>
+<p>The consequences of a failed Morale check will vary based on
+the situation and the creatures being tested. Non-combatants and
+undisciplined fighters will generally flee madly, dropping shields and
+abandoning burdens as they try to escape their doom.</p>
+<p>Trained and experienced warriors will usually make a fighting
+withdrawal, trying to pull away from their enemies and escape back
+to safety with as many of their comrades as they can. Of course, in
+the face of truly devastating situations they may flee just as readily
+as their green compatriots.</p>
+<p>If flight seems impossible or prohibitively dangerous, they might
+throw down their weapons and beg for mercy, if they think they have
+any chance of receiving it from their assailants. If that seems hopeless,
+they might just collapse in terrified despair as they pray to their gods,
+or fight with a renewed frenzy in a desperate attempt to cut their way
+out of the trap. Some may offer bribes or favors to win their lives.</p>
+<p>In all cases, once a side has failed its Morale check, it’s not going to be in a condition to fight those foes until it’s had some time to
+recover its courage.</p>
+<h3 id="the-importance-of-morale"><a class="header" href="#the-importance-of-morale">The Importance of Morale</a></h3>
+<p>It’s very important that GMs keep Morale checks in mind and use
+them regularly during combat. Only truly abnormal creatures such as
+mindless undead, unthinking vermin, or command-bound automatons
+will fight relentlessly onward regardless of the situation. If every goblin
+warrior is a Spartan at Thermopylae, the PCs are going to lose a lot of
+comrades cleaning up fights that were clearly won five rounds ago.</p>
+<p>Aside from that, warriors are not fools, and they will not linger to
+fight battles that cannot be won and are not worth their lives. Even
+if they never fail a Morale check, they will not stay to die to the last
+man if there’s no pressing reason for them to do so. Once they see
+that victory is a vain hope, they’ll try to withdraw or to cut some kind
+of deal with their enemies.</p>
+<p>Of course, not all beaten sides respond rationally. The terror of
+battle, the confusion of melee, and a misunderstanding of the situation might leave some few warriors battling on even when all is lost,
+simply because they haven’t realized that all their friends are dead
+yet. Green troops are notorious for sometimes achieving military
+goals that veterans never could, because veterans would recognize
+certain failure much earlier. The same can sometimes apply to frenetic
+barbarians, savage mobs, or single-minded marauders.</p>
+<h2 id="fleeing-and-escape"><a class="header" href="#fleeing-and-escape">Fleeing and Escape</a></h2>
+<p>Whether from a failed Morale check or the PCs deciding on a prudent
+retreat, sometimes a side decamps the field. If pursued, the rules for
+chases and pursuit given in the rules section of this document can be
+used to judge the likelihood of success.</p>
+<p>GMs should be charitable about allowing PCs to run away. Most
+pursuers have little reason to be particularly relentless, and a party
+should be taught that running away is a viable option and not an
+excuse to die tired.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../05/02-reaction-rolls-and-parleying.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../05/04-instinct-checks.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../05/02-reaction-rolls-and-parleying.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../05/04-instinct-checks.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

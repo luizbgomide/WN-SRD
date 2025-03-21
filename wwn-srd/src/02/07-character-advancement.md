@@ -13,7 +13,8 @@ up; the totals listed are total points accumulated.
 
 <blockquote class="table">
 
-## Experience Point Requirements
+### Experience Point Requirements
+
 | Level | Fast  | Slow  |
 | :---: | :---: | :---: |
 |   1   |   0   |   0   |

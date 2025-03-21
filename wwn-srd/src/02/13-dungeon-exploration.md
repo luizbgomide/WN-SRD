@@ -47,6 +47,7 @@ of its dangerous inhabitants.
 | Perform first aid and looting after a fight    |   1   |
 | Search a room carefully                        |   1   |
 | Jury-rig something or work a device            |   1   |
+| <hr class="table-split">                       |       |
 | Time a torch lasts until burning out           |   6   |
 | Time a filled lantern lasts before burning out |  24   |
 

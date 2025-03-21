@@ -1,0 +1,380 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Wealth Assets - Worlds Without Number SRD v1.0</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="highlight-css" href="../highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="../tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../ep2e.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Worlds Without Number SRD v1.0</h1>
+
+                    <div class="right-buttons">
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="wealth-assets"><a class="header" href="#wealth-assets">Wealth Assets</a></h1>
+<p><strong>Ancient Mechanisms:</strong> Some useful magical mechanism from ages
+past has been refitted to be useful in local industry. Whenever an
+Asset in the same location must roll to make a profit, such as Farmers or Manufactory, the faction may roll the die twice and take the
+better result.</p>
+<p><strong>Ancient Workshop:</strong> A workshop has been refitted with ancient
+magical tools, allowing prodigies of production, albeit not always
+safely. As a free action, once per turn, the Ancient Workshop takes
+1d6 damage and the owning faction gains 1d6 Treasure.</p>
+<p><strong>Arcane Laboratory:</strong> The faction’s overall Magic is counted as one
+step higher for the purposes of creating Assets in the same location
+as the laboratory. Multiple Arcane Laboratories in the same location
+can increase the Magic boost by multiple steps.</p>
+<p><strong>Armed Guards:</strong> Hired caravan guards, bodyguards, or other armed
+minions serve the faction.</p>
+<p><strong>Caravan:</strong> As a free action, once per turn, the Caravan can spend 1
+Treasure and move itself and one other Asset in the same place to a
+new location within one move.</p>
+<p><strong>Cooperative Businesses:</strong> If any other faction attempts to create
+an Asset in the same location as a Cooperative Business, the cost of
+doing so increases by 1 Treasure. This penalty stacks.</p>
+<p><strong>Dragomans:</strong> Interpreters, cultural specialists, and go-betweens simplify the expansion of a faction’s influence in an area. A faction that
+takes an Expand Influence action in the same location as this Asset
+can roll an extra die on all checks there that turn. As a free action
+once per turn, this Asset can move.</p>
+<p><strong>Economic Disruption:</strong> As a free action once per turn, this Asset can
+move itself without cost.</p>
+<p><strong>Farmers:</strong> Farmers, hunters, and simple rural artisans are in service
+to the faction here. Once per turn, as a free action, the Asset’s owner
+can roll 1d6; on a 5+, they gain 1 Treasure from the Farmers.</p>
+<p><strong>Free Company:</strong> Hired mercenaries and professional soldiers, this
+Asset can, as a free action once per turn, move itself. At the start of
+each of its owner’s turn, it takes 1 Treasure in upkeep costs; if this is
+not paid, roll 1d6. On a 1-3 the Asset is lost, on a 4-6 it goes rogue
+and will move to Attack the most profitable-looking target. This roll is
+repeated each turn until back pay is paid or the Asset is lost.</p>
+<p><strong>Front Merchant:</strong> Whenever the Front Merchant successfully Attacks
+an enemy Asset, the target faction loses 1 Treasure, if they have any,
+and the Front Merchant’s owner gains it. Such a loss can occur only
+once per turn.</p>
+<p><strong>Golden Prosperity:</strong> Each turn, as a free action, the faction gains 1d6
+Treasure that can be used to fix damaged Assets as if by the Repair
+Assets action. Any of this Treasure not spent on such purposes is lost.</p>
+<p><strong>Healers:</strong> Whenever an Asset within one move of the Healers is destroyed by an Attack that used Force against the target, the owner
+of the Healers may pay half its purchase price in Treasure, rounded
+up, to instantly restore it with 1 hit point. This cannot be used to repair
+Bases of Influence.</p>
+<p><strong>Hired Legion:</strong> As a free action once per turn, the Hired Legion can
+move. This faction must be paid 2 Treasure at the start of each turn
+as upkeep, or else they go rogue as the Free Company Asset does.
+This Asset cannot be voluntarily sold or disbanded.</p>
+<p><strong>Lead or Silver:</strong> If Lead or Silver’s Attack reduces an enemy Asset to
+zero hit points, this Asset’s owner may immediately pay half the target’s purchase cost to claim it as their own, reviving it with 1 hit point.</p>
+<p><strong>Mad Genius:</strong> As a free action, once per turn, the Mad Genius may
+move. As a free action, once per turn, the Mad Genius may be sacrificed to treat the Magic rating in their location as High for the purpose
+of buying Assets that require such resources. This boost lasts only until
+the next Asset is purchased in that location.</p>
+<p><strong>Manufactory:</strong> Once per turn, as a free action, the Asset’s owner may
+roll 1d6; on a 1, one point of Treasure is lost, on a 2-5, one point
+is gained, and on a 6, two points are gained. If Treasure is lost and
+none is available to pay it by the end of the turn, this Asset is lost.</p>
+<p><strong>Merchant Prince:</strong> A canny master of trade, the Merchant Prince may
+be triggered as a free action once per turn before buying a new Asset
+in the same location; the Merchant Prince takes 1d4 damage and
+the purchased Asset costs 1d8 Treasure less, down to a minimum of
+half its normal price.</p>
+<p><strong>Monopoly:</strong> Once per turn, as a free action, the Monopoly Asset
+can target an Asset in the same location; that Asset’s owning faction must either pay the Monopoly’s owner 1 Treasure or lose the
+targeted Asset.</p>
+<p><strong>Occult Countermeasures:</strong> This asset can only Attack or inflict Counterattack damage on Assets that require at least a Low Magic rating
+to purchase.</p>
+<p><strong>Pleaders:</strong> Whether lawyers, skalds, lawspeakers, sage elders, or
+other legal specialists, Pleaders can turn the local society’s laws
+against the enemies of the faction. However, Pleaders can neither
+Attack nor inflict Counterattack damage on Force Assets.</p>
+<p><strong>Smuggling Fleet:</strong> Once per turn, as a free action, they may move
+themselves and any one Asset at their current location to any other
+water-accessible location within one move. Any Asset they move
+with them gains the Subtle quality until they take some action at the
+destination.</p>
+<p><strong>Supply Interruption:</strong> As a free action, once per turn, the Asset can
+make a Cunning vs. Wealth check against an Asset in the same location. On a success, the owning faction must sacrifice Treasure equal to
+half the target Asset’s purchase cost, or else it is disabled and useless
+until this price is paid.</p>
+<p><strong>Trade Company:</strong> Bold traders undertake potentially lucrative- or
+catastrophic- new business opportunities. As a free action, once per
+turn, the owner of the Asset may roll accept 1d4 damage done to
+the Asset in exchange for earning 1d6-1 Treasure points.</p>
+<p><strong>Transport Network:</strong> A vast array of carters, ships, smugglers, and
+official caravans are under the faction’s control. As a free action the
+Transport Network can spend 1 Treasure to move any friendly Asset
+within two moves to any location within one move of either the target
+or the Transport Network.</p>
+<p><strong>Usurers:</strong> Moneylenders and other proto-bankers ply their trade for
+the faction. For each unit of Usurers owned by a faction, the Treasure
+cost of buying Assets may be decreased by 2 Treasure, to a minimum
+of half its cost. Each time the Usurers are used for this benefit, they
+suffer 1d4 damage from popular displeasure.</p>
+<p><strong>Worker Mob:</strong> The roughest, most brutal laborers in service with the
+faction have been quietly organized to sternly discipline the enemies
+of the group.</p>
+<blockquote class="table">
+<h3 id="wealth-1"><a class="header" href="#wealth-1">Wealth 1</a></h3>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: left">Wealth Asset</th><th style="text-align: center">Cost</th><th style="text-align: center">HP</th><th style="text-align: center">Magic</th><th style="text-align: center">Attack</th><th style="text-align: center">Counter</th><th style="text-align: center">Qualities</th></tr></thead><tbody>
+<tr><td style="text-align: left">Armed Guards</td><td style="text-align: center">1</td><td style="text-align: center">3</td><td style="text-align: center">None</td><td style="text-align: center">W v. F/1d3 damage</td><td style="text-align: center">1d4 damage</td><td style="text-align: center"></td></tr>
+<tr><td style="text-align: left">Cooperative Businesses</td><td style="text-align: center">1</td><td style="text-align: center">2</td><td style="text-align: center">None</td><td style="text-align: center">W v. W/1d4-1 damage</td><td style="text-align: center">None</td><td style="text-align: center">Subtle, Special</td></tr>
+<tr><td style="text-align: left">Farmers</td><td style="text-align: center">2</td><td style="text-align: center">4</td><td style="text-align: center">None</td><td style="text-align: center">None</td><td style="text-align: center">1d4 damage</td><td style="text-align: center">Action</td></tr>
+<tr><td style="text-align: left">Front Merchant</td><td style="text-align: center">2</td><td style="text-align: center">3</td><td style="text-align: center">None</td><td style="text-align: center">W v. W/1d4 damage</td><td style="text-align: center">1d4-1 damage</td><td style="text-align: center">Subtle</td></tr>
+</tbody></table>
+</div></blockquote><blockquote class="table">
+<h3 id="wealth-2"><a class="header" href="#wealth-2">Wealth 2</a></h3>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: left">Wealth Asset</th><th style="text-align: center">Cost</th><th style="text-align: center">HP</th><th style="text-align: center">Magic</th><th style="text-align: center">Attack</th><th style="text-align: center">Counter</th><th style="text-align: center">Qualities</th></tr></thead><tbody>
+<tr><td style="text-align: left">Caravan</td><td style="text-align: center">5</td><td style="text-align: center">4</td><td style="text-align: center">None</td><td style="text-align: center">W v. W/1d4 damage</td><td style="text-align: center">None</td><td style="text-align: center">Action</td></tr>
+<tr><td style="text-align: left">Dragomans</td><td style="text-align: center">4</td><td style="text-align: center">4</td><td style="text-align: center">None</td><td style="text-align: center">None</td><td style="text-align: center">1d4 damage</td><td style="text-align: center">Subtle, Special</td></tr>
+<tr><td style="text-align: left">Pleaders</td><td style="text-align: center">6</td><td style="text-align: center">4</td><td style="text-align: center">None</td><td style="text-align: center">C v. W/2d4 damage</td><td style="text-align: center">1d6 damage</td><td style="text-align: center">Special</td></tr>
+<tr><td style="text-align: left">Worker Mob</td><td style="text-align: center">4</td><td style="text-align: center">6</td><td style="text-align: center">None</td><td style="text-align: center">W v. F/1d4+1 damage</td><td style="text-align: center">1d4 damage</td><td style="text-align: center"></td></tr>
+</tbody></table>
+</div></blockquote><blockquote class="table">
+<h3 id="wealth-3"><a class="header" href="#wealth-3">Wealth 3</a></h3>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: left">Wealth Asset</th><th style="text-align: center">Cost</th><th style="text-align: center">HP</th><th style="text-align: center">Magic</th><th style="text-align: center">Attack</th><th style="text-align: center">Counter</th><th style="text-align: center">Qualities</th></tr></thead><tbody>
+<tr><td style="text-align: left">Ancient Mechanisms</td><td style="text-align: center">8</td><td style="text-align: center">4</td><td style="text-align: center">Medium</td><td style="text-align: center">None</td><td style="text-align: center">None</td><td style="text-align: center">Special</td></tr>
+<tr><td style="text-align: left">Arcane Laboratory</td><td style="text-align: center">6</td><td style="text-align: center">4</td><td style="text-align: center">None</td><td style="text-align: center">None</td><td style="text-align: center">None</td><td style="text-align: center">Special</td></tr>
+<tr><td style="text-align: left">Free Company</td><td style="text-align: center">8</td><td style="text-align: center">6</td><td style="text-align: center">None</td><td style="text-align: center">W v. F/2d4+2 damage</td><td style="text-align: center">1d6 damage</td><td style="text-align: center">Action, Special</td></tr>
+<tr><td style="text-align: left">Manufactory</td><td style="text-align: center">8</td><td style="text-align: center">4</td><td style="text-align: center">None</td><td style="text-align: center">None</td><td style="text-align: center">1d4 damage</td><td style="text-align: center">Action</td></tr>
+</tbody></table>
+</div></blockquote><blockquote class="table">
+<h3 id="wealth-4"><a class="header" href="#wealth-4">Wealth 4</a></h3>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: left">Wealth Asset</th><th style="text-align: center">Cost</th><th style="text-align: center">HP</th><th style="text-align: center">Magic</th><th style="text-align: center">Attack</th><th style="text-align: center">Counter</th><th style="text-align: center">Qualities</th></tr></thead><tbody>
+<tr><td style="text-align: left">Healers</td><td style="text-align: center">12</td><td style="text-align: center">8</td><td style="text-align: center">None</td><td style="text-align: center">None</td><td style="text-align: center">None</td><td style="text-align: center">Action</td></tr>
+<tr><td style="text-align: left">Monopoly</td><td style="text-align: center">8</td><td style="text-align: center">12</td><td style="text-align: center">None</td><td style="text-align: center">W v. W/1d6 damage</td><td style="text-align: center">1d6 damage</td><td style="text-align: center">Action</td></tr>
+<tr><td style="text-align: left">Occult Countermeasures</td><td style="text-align: center">10</td><td style="text-align: center">8</td><td style="text-align: center">Low</td><td style="text-align: center">W v. C/2d10 damage</td><td style="text-align: center">1d10 damage</td><td style="text-align: center">Special</td></tr>
+<tr><td style="text-align: left">Usurers</td><td style="text-align: center">12</td><td style="text-align: center">8</td><td style="text-align: center">None</td><td style="text-align: center">W v. W/1d10 damage</td><td style="text-align: center">None</td><td style="text-align: center">Action</td></tr>
+</tbody></table>
+</div></blockquote><blockquote class="table">
+<h3 id="wealth-5"><a class="header" href="#wealth-5">Wealth 5</a></h3>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: left">Wealth Asset</th><th style="text-align: center">Cost</th><th style="text-align: center">HP</th><th style="text-align: center">Magic</th><th style="text-align: center">Attack</th><th style="text-align: center">Counter</th><th style="text-align: center">Qualities</th></tr></thead><tbody>
+<tr><td style="text-align: left">Mad Genius</td><td style="text-align: center">6</td><td style="text-align: center">2</td><td style="text-align: center">None</td><td style="text-align: center">W v. C/1d6 damage</td><td style="text-align: center">None</td><td style="text-align: center">Action</td></tr>
+<tr><td style="text-align: left">Smuggling Fleet</td><td style="text-align: center">12</td><td style="text-align: center">6</td><td style="text-align: center">None</td><td style="text-align: center">W v. F/2d6 damage</td><td style="text-align: center">None</td><td style="text-align: center">Subtle, Action</td></tr>
+<tr><td style="text-align: left">Supply Interruption</td><td style="text-align: center">10</td><td style="text-align: center">8</td><td style="text-align: center">None</td><td style="text-align: center">C v. W/1d6 damage</td><td style="text-align: center">None</td><td style="text-align: center">Subtle, Action</td></tr>
+</tbody></table>
+</div></blockquote><blockquote class="table">
+<h3 id="wealth-6"><a class="header" href="#wealth-6">Wealth 6</a></h3>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: left">Wealth Asset</th><th style="text-align: center">Cost</th><th style="text-align: center">HP</th><th style="text-align: center">Magic</th><th style="text-align: center">Attack</th><th style="text-align: center">Counter</th><th style="text-align: center">Qualities</th></tr></thead><tbody>
+<tr><td style="text-align: left">Economic Disruption</td><td style="text-align: center">25</td><td style="text-align: center">10</td><td style="text-align: center">None</td><td style="text-align: center">W v. W/2d6 damage</td><td style="text-align: center">None</td><td style="text-align: center">Subtle, Action</td></tr>
+<tr><td style="text-align: left">Merchant Prince</td><td style="text-align: center">20</td><td style="text-align: center">10</td><td style="text-align: center">None</td><td style="text-align: center">W v. W/2d8 damage</td><td style="text-align: center">1d8 damage</td><td style="text-align: center">Action</td></tr>
+<tr><td style="text-align: left">Trade Company</td><td style="text-align: center">15</td><td style="text-align: center">10</td><td style="text-align: center">None</td><td style="text-align: center">W v. W/2d6 damage</td><td style="text-align: center">1d6 damage</td><td style="text-align: center">Action</td></tr>
+</tbody></table>
+</div></blockquote><blockquote class="table">
+<h3 id="wealth-7"><a class="header" href="#wealth-7">Wealth 7</a></h3>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: left">Wealth Asset</th><th style="text-align: center">Cost</th><th style="text-align: center">HP</th><th style="text-align: center">Magic</th><th style="text-align: center">Attack</th><th style="text-align: center">Counter</th><th style="text-align: center">Qualities</th></tr></thead><tbody>
+<tr><td style="text-align: left">Ancient Workshop</td><td style="text-align: center">25</td><td style="text-align: center">16</td><td style="text-align: center">Medium</td><td style="text-align: center">None</td><td style="text-align: center">None</td><td style="text-align: center"></td></tr>
+<tr><td style="text-align: left">Lead or Silver</td><td style="text-align: center">20</td><td style="text-align: center">10</td><td style="text-align: center">None</td><td style="text-align: center">W v. W/2d10 damage</td><td style="text-align: center">2d8 damage</td><td style="text-align: center"></td></tr>
+<tr><td style="text-align: left">Transport Network</td><td style="text-align: center">15</td><td style="text-align: center">5</td><td style="text-align: center">None</td><td style="text-align: center">W v. W/1d12 damage</td><td style="text-align: center">None</td><td style="text-align: center">Action</td></tr>
+</tbody></table>
+</div></blockquote><blockquote class="table">
+<h3 id="wealth-8"><a class="header" href="#wealth-8">Wealth 8</a></h3>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: left">Wealth Asset</th><th style="text-align: center">Cost</th><th style="text-align: center">HP</th><th style="text-align: center">Magic</th><th style="text-align: center">Attack</th><th style="text-align: center">Counter</th><th style="text-align: center">Qualities</th></tr></thead><tbody>
+<tr><td style="text-align: left">Golden Prosperity</td><td style="text-align: center">40</td><td style="text-align: center">30</td><td style="text-align: center">Medium</td><td style="text-align: center">None</td><td style="text-align: center">2d10 damage</td><td style="text-align: center"></td></tr>
+<tr><td style="text-align: left">Hired Legion</td><td style="text-align: center">30</td><td style="text-align: center">20</td><td style="text-align: center">None</td><td style="text-align: center">W v F/2d10+4 damage</td><td style="text-align: center">2d10 damage</td><td style="text-align: center">Action</td></tr>
+</tbody></table>
+</div></blockquote>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../06/09-force-assets.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../07/00-major-projects.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../06/09-force-assets.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../07/00-major-projects.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

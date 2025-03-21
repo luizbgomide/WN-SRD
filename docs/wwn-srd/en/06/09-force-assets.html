@@ -1,0 +1,380 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Force Assets - Worlds Without Number SRD v1.0</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="highlight-css" href="../highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="../tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../ep2e.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Worlds Without Number SRD v1.0</h1>
+
+                    <div class="right-buttons">
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="force-assets"><a class="header" href="#force-assets">Force Assets</a></h1>
+<p><strong>Apocalypse Engine:</strong> One of a number of hideously powerful ancient
+super-weapons unearthed from some lost armory, an Apocalypse
+Engine rains some eldritch horror down on a targeted enemy Asset.</p>
+<p><strong>Brilliant General:</strong> A leader for the ages is in service with the faction.
+Whenever the Brilliant General or any allied Force Asset in the same
+location Attacks or is made to defend, it can roll an extra die to do so.</p>
+<p><strong>Cavalry:</strong> Mounted troops, chariots, or other mobile soldiers are in
+service to the faction. While weak on defense, they can harry logistics
+and mount powerful charges.</p>
+<p><strong>Demonic Slayer:</strong> Powerful sorcerers have summoned or constructed
+an inhuman assassin-beast to hunt down and slaughter the faction’s
+enemies. A Demonic Slayer enters play Stealthed.</p>
+<p><strong>Enchanted Elites:</strong> A carefully-selected group of skilled warriors
+are given magical armaments and arcane blessings to boost their
+effectiveness.</p>
+<p><strong>Fearful Intimidation:</strong> Judicious exercises of force have intimidated
+the locals, making them reluctant to cooperate with any group that
+stands opposed to the faction.</p>
+<p><strong>Fortification Program:</strong> A program of organized fortification and
+supply caching has been undertaken around the Asset’s location,
+hardening allied communities and friendly Assets. Once per turn,
+when an enemy makes an Attack that targets the faction’s Force rating,
+the faction can use the Fortification Program to defend if the Asset is
+within a turn’s move from the attack.</p>
+<p><strong>Guerrilla Populace:</strong> The locals have the assistance of trained guerrilla warfare leaders who can aid them in sabotaging and attacking
+unwary hostiles.</p>
+<p><strong>Infantry:</strong> Common foot soldiers have been organized and armed
+by the faction. While rarely particularly heroic in their capabilities,
+they have the advantage of numbers.</p>
+<p><strong>Invincible Legion:</strong> The faction has developed a truly irresistible
+military organization that can smash its way through opposition without the aid of any support units. During a Relocate Asset action, the
+Invincible Legion can relocate to locations that would otherwise not
+permit a formal military force to relocate there, as if it had the Subtle
+quality. It is not, however, in any way subtle.</p>
+<p><strong>Knights:</strong> Elite warriors of considerable personal prowess have been
+trained or enlisted by the faction, either from noble sympathizers,
+veteran members, or amenable mercenaries.</p>
+<p><strong>Local Guard:</strong> Ordinary citizens are enlisted into night watch patrols
+and local guard units. They’re most effective when defending from
+behind a fortified position, but they have some idea of how to use
+their weapons.</p>
+<p><strong>Magical Logistics:</strong> An advanced web of magical Workings, skilled
+sorcerers, and trained logistical experts are enlisted to streamline the
+faction’s maintenance and sustain damaged units. Once per faction
+turn, as a free action, the Asset can repair 2 hit points of damage to
+an allied Force Asset.</p>
+<p><strong>Military Roads:</strong> The faction has established a network of roads
+with a logistical stockpile at this Asset’s location. As a consequence,
+once per faction turn, the faction can move any one Asset from any
+location within its reach to any other location within its reach at a
+cost of 1 Treasure.</p>
+<p><strong>Military Transport:</strong> A branch of skilled teamsters, transport ships,
+road-building crews, or other logistical facilitators is in service to the
+faction. As a free action once per faction turn, it can bring an allied
+Asset to its location, provided they’re within one turn’s movement
+range, or move an allied Asset from its own location to a target also
+within a turn’s move. Multiple Military Transport assets can chain this
+movement over long distances.</p>
+<p><strong>Purity Rites:</strong> A rigorous program of regular mental inspection and
+counterintelligence measures has been undertaken by the faction.
+This Asset can only defend against attacks that target the faction’s
+Cunning, but it allows the faction to roll an extra die to defend.</p>
+<p><strong>Reserve Corps:</strong> Retired military personnel and rear-line troops are
+spread through the area as workers or colonists, available to resist
+hostilities as needed.</p>
+<p><strong>Scouts:</strong> Long-range scouts and reconnaissance experts work for the
+faction, able to venture deep into hostile territory.</p>
+<p><strong>Siege Experts:</strong> These soldiers are trained in trenching, sapping, and
+razing targeted structures. When they successfully Attack an enemy
+Asset, the owner loses 1d4 points of Treasure from their reserves and
+this faction gains it.</p>
+<p><strong>Summoned Hunter:</strong> A skilled sorcerer has summoned a magical
+beast or mentally bound a usefully disposable assassin into the faction’s service.</p>
+<p><strong>Temple Fanatics:</strong> Fanatical servants of a cult, ideology, or larger
+religion, these enthusiasts wreak havoc on enemies without a thought
+for their own lives. After every time the Temple Fanatics defend or
+successfully attack, they take 1d4 damage.</p>
+<p><strong>Thugs:</strong> These gutter ruffians and common kneebreakers have been
+organized in service to the faction’s causes.</p>
+<p><strong>Vanguard Unit:</strong> This unit is specially trained to build bridges, reduce
+fortifications, and facilitate a lightning strike into enemy territory.
+When its faction takes a Relocate Asset turn, it can move the Vanguard
+Unit and any allied units at the same location to any other location
+within range, even if the unit type would normally be prohibitive from
+moving there. Thus, a Force asset could be moved into a foreign nation’s territory even against their wishes. The unit may remain at that
+location afterwards even if the Vanguard Unit leaves.</p>
+<p><strong>War Fleet:</strong> While a war fleet can only Attack assets and locations
+within reach of the waterways, once per turn it can freely relocate
+itself to any coastal area within movement range. The Asset itself
+must be based out of some landward location to provide for supply
+and refitting.</p>
+<p><strong>War Machines:</strong> Mobile war machines driven by trained beasts or
+magical motive power are under the faction’s control.</p>
+<p><strong>Warshaped:</strong> The faction has the use of magical creatures designed
+specifically for warfare, or ordinary humans that have been greatly
+altered to serve the faction’s needs. Such forces are few and elusive
+enough to evade easy detection.</p>
+<p><strong>Witch Hunters:</strong> Certain personnel are trained in sniffing out traitors
+and spies in the organization, along with the presence of hostile
+magic or hidden spellcraft.</p>
+<blockquote class="table">
+<h3 id="force-1"><a class="header" href="#force-1">Force 1</a></h3>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: left">Force Asset</th><th style="text-align: center">Cost</th><th style="text-align: center">HP</th><th style="text-align: center">Magic</th><th style="text-align: center">Attack</th><th style="text-align: center">Counter</th><th style="text-align: center">Qualities</th></tr></thead><tbody>
+<tr><td style="text-align: left">Fearful Intimidation</td><td style="text-align: center">2</td><td style="text-align: center">4</td><td style="text-align: center">None</td><td style="text-align: center">None</td><td style="text-align: center">1d4 damage</td><td style="text-align: center"></td></tr>
+<tr><td style="text-align: left">Local Guard</td><td style="text-align: center">3</td><td style="text-align: center">4</td><td style="text-align: center">None</td><td style="text-align: center">F v. F/1d3+1 damage</td><td style="text-align: center">1d4+1 damage</td><td style="text-align: center"></td></tr>
+<tr><td style="text-align: left">Summoned Hunter</td><td style="text-align: center">4</td><td style="text-align: center">4</td><td style="text-align: center">Medium</td><td style="text-align: center">C v. F/1d6 damage</td><td style="text-align: center">None</td><td style="text-align: center">Subtle</td></tr>
+<tr><td style="text-align: left">Thugs</td><td style="text-align: center">2</td><td style="text-align: center">1</td><td style="text-align: center">None</td><td style="text-align: center">F v. C/1d6 damage</td><td style="text-align: center">None</td><td style="text-align: center">Subtle</td></tr>
+</tbody></table>
+</div></blockquote><blockquote class="table">
+<h3 id="force-2"><a class="header" href="#force-2">Force 2</a></h3>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: left">Force Asset</th><th style="text-align: center">Cost</th><th style="text-align: center">HP</th><th style="text-align: center">Magic</th><th style="text-align: center">Attack</th><th style="text-align: center">Counter</th><th style="text-align: center">Qualities</th></tr></thead><tbody>
+<tr><td style="text-align: left">Guerrilla Populace</td><td style="text-align: center">6</td><td style="text-align: center">4</td><td style="text-align: center">None</td><td style="text-align: center">F v. F/1d4+1 damage</td><td style="text-align: center">None</td><td style="text-align: center"></td></tr>
+<tr><td style="text-align: left">Military Transport</td><td style="text-align: center">4</td><td style="text-align: center">6</td><td style="text-align: center">None</td><td style="text-align: center">None</td><td style="text-align: center">None</td><td style="text-align: center">Action</td></tr>
+<tr><td style="text-align: left">Reserve Corps</td><td style="text-align: center">4</td><td style="text-align: center">4</td><td style="text-align: center">None</td><td style="text-align: center">F v. F/1d6 damage</td><td style="text-align: center">1d6 damage</td><td style="text-align: center"></td></tr>
+<tr><td style="text-align: left">Scouts</td><td style="text-align: center">5</td><td style="text-align: center">5</td><td style="text-align: center">None</td><td style="text-align: center">F v. F/2d4 damage</td><td style="text-align: center">1d4+1 damage</td><td style="text-align: center">Subtle</td></tr>
+</tbody></table>
+</div></blockquote><blockquote class="table">
+<h3 id="force-3"><a class="header" href="#force-3">Force 3</a></h3>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: left">Force Asset</th><th style="text-align: center">Cost</th><th style="text-align: center">HP</th><th style="text-align: center">Magic</th><th style="text-align: center">Attack</th><th style="text-align: center">Counter</th><th style="text-align: center">Qualities</th></tr></thead><tbody>
+<tr><td style="text-align: left">Enchanted Elites</td><td style="text-align: center">8</td><td style="text-align: center">6</td><td style="text-align: center">Medium</td><td style="text-align: center">F v. F/1d10 damage</td><td style="text-align: center">1d6 damage</td><td style="text-align: center">Subtle</td></tr>
+<tr><td style="text-align: left">Infantry</td><td style="text-align: center">6</td><td style="text-align: center">6</td><td style="text-align: center">None</td><td style="text-align: center">F v. F/1d8 damage</td><td style="text-align: center">1d6 damage</td><td style="text-align: center"></td></tr>
+<tr><td style="text-align: left">Temple Fanatics</td><td style="text-align: center">4</td><td style="text-align: center">6</td><td style="text-align: center">None</td><td style="text-align: center">F v. F/2d6 damage</td><td style="text-align: center">2d6 damage</td><td style="text-align: center">Special</td></tr>
+<tr><td style="text-align: left">Witch Hunters</td><td style="text-align: center">6</td><td style="text-align: center">4</td><td style="text-align: center">Low</td><td style="text-align: center">C v. C/1d4+1 damage</td><td style="text-align: center">1d6 damage</td><td style="text-align: center"></td></tr>
+</tbody></table>
+</div></blockquote><blockquote class="table">
+<h3 id="force-4"><a class="header" href="#force-4">Force 4</a></h3>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: left">Force Asset</th><th style="text-align: center">Cost</th><th style="text-align: center">HP</th><th style="text-align: center">Magic</th><th style="text-align: center">Attack</th><th style="text-align: center">Counter</th><th style="text-align: center">Qualities</th></tr></thead><tbody>
+<tr><td style="text-align: left">Cavalry</td><td style="text-align: center">8</td><td style="text-align: center">12</td><td style="text-align: center">None</td><td style="text-align: center">F v. F/2d6 damage</td><td style="text-align: center">1d4 damage</td><td style="text-align: center"></td></tr>
+<tr><td style="text-align: left">Military Roads</td><td style="text-align: center">10</td><td style="text-align: center">10</td><td style="text-align: center">None</td><td style="text-align: center">None</td><td style="text-align: center">None</td><td style="text-align: center">Action</td></tr>
+<tr><td style="text-align: left">Vanguard Unit</td><td style="text-align: center">10</td><td style="text-align: center">10</td><td style="text-align: center">None</td><td style="text-align: center">None</td><td style="text-align: center">1d6 damage</td><td style="text-align: center">Action</td></tr>
+<tr><td style="text-align: left">War Fleet</td><td style="text-align: center">12</td><td style="text-align: center">8</td><td style="text-align: center">None</td><td style="text-align: center">F v. F/2d6 damage</td><td style="text-align: center">1d8 damage</td><td style="text-align: center">Action</td></tr>
+</tbody></table>
+</div></blockquote><blockquote class="table">
+<h3 id="force-5"><a class="header" href="#force-5">Force 5</a></h3>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: left">Force Asset</th><th style="text-align: center">Cost</th><th style="text-align: center">HP</th><th style="text-align: center">Magic</th><th style="text-align: center">Attack</th><th style="text-align: center">Counter</th><th style="text-align: center">Qualities</th></tr></thead><tbody>
+<tr><td style="text-align: left">Demonic Slayer</td><td style="text-align: center">12</td><td style="text-align: center">4</td><td style="text-align: center">High</td><td style="text-align: center">C v. C/2d6+2 damage</td><td style="text-align: center">None</td><td style="text-align: center">Subtle, Special</td></tr>
+<tr><td style="text-align: left">Magical Logistics</td><td style="text-align: center">14</td><td style="text-align: center">6</td><td style="text-align: center">Medium</td><td style="text-align: center">None</td><td style="text-align: center">None</td><td style="text-align: center">Special</td></tr>
+<tr><td style="text-align: left">Siege Experts</td><td style="text-align: center">10</td><td style="text-align: center">8</td><td style="text-align: center">None</td><td style="text-align: center">F v. W/1d6 damage</td><td style="text-align: center">1d6 damage</td><td style="text-align: center"></td></tr>
+</tbody></table>
+</div></blockquote><blockquote class="table">
+<h3 id="force-6"><a class="header" href="#force-6">Force 6</a></h3>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: left">Force Asset</th><th style="text-align: center">Cost</th><th style="text-align: center">HP</th><th style="text-align: center">Magic</th><th style="text-align: center">Attack</th><th style="text-align: center">Counter</th><th style="text-align: center">Qualities</th></tr></thead><tbody>
+<tr><td style="text-align: left">Fortification Program</td><td style="text-align: center">20</td><td style="text-align: center">18</td><td style="text-align: center">None</td><td style="text-align: center">None 2d6</td><td style="text-align: center">damage</td><td style="text-align: center">Action</td></tr>
+<tr><td style="text-align: left">Knights</td><td style="text-align: center">18</td><td style="text-align: center">16</td><td style="text-align: center">None</td><td style="text-align: center">F v. F/2d8 damage</td><td style="text-align: center">2d6 damage</td><td style="text-align: center"></td></tr>
+<tr><td style="text-align: left">War Machines</td><td style="text-align: center">25</td><td style="text-align: center">14</td><td style="text-align: center">Medium</td><td style="text-align: center">F v. F/2d10+4 damage</td><td style="text-align: center">1d10 damage</td><td style="text-align: center"></td></tr>
+</tbody></table>
+</div></blockquote><blockquote class="table">
+<h3 id="force-7"><a class="header" href="#force-7">Force 7</a></h3>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: left">Force Asset</th><th style="text-align: center">Cost</th><th style="text-align: center">HP</th><th style="text-align: center">Magic</th><th style="text-align: center">Attack</th><th style="text-align: center">Counter</th><th style="text-align: center">Qualities</th></tr></thead><tbody>
+<tr><td style="text-align: left">Brilliant General</td><td style="text-align: center">25</td><td style="text-align: center">8</td><td style="text-align: center">None</td><td style="text-align: center">C v. F/1d8 damage</td><td style="text-align: center">None</td><td style="text-align: center">Subtle, Special</td></tr>
+<tr><td style="text-align: left">Purity Rites</td><td style="text-align: center">20</td><td style="text-align: center">10</td><td style="text-align: center">Low</td><td style="text-align: center">None</td><td style="text-align: center">2d8+2 damage</td><td style="text-align: center">Special</td></tr>
+<tr><td style="text-align: left">Warshaped</td><td style="text-align: center">30</td><td style="text-align: center">16</td><td style="text-align: center">High</td><td style="text-align: center">F v. F/2d8+2 damage</td><td style="text-align: center">2d8 damage</td><td style="text-align: center">Subtle</td></tr>
+</tbody></table>
+</div></blockquote><blockquote class="table">
+<h3 id="force-8"><a class="header" href="#force-8">Force 8</a></h3>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: left">Force Asset</th><th style="text-align: center">Cost</th><th style="text-align: center">HP</th><th style="text-align: center">Magic</th><th style="text-align: center">Attack</th><th style="text-align: center">Counter</th><th style="text-align: center">Qualities</th></tr></thead><tbody>
+<tr><td style="text-align: left">Apocalypse Engine</td><td style="text-align: center">35</td><td style="text-align: center">20</td><td style="text-align: center">Medium</td><td style="text-align: center">F v. F/3d10+4 damage</td><td style="text-align: center">None</td><td style="text-align: center"></td></tr>
+<tr><td style="text-align: left">Invincible Legion</td><td style="text-align: center">40</td><td style="text-align: center">30</td><td style="text-align: center">None</td><td style="text-align: center">F v. F/2d10+4 damage</td><td style="text-align: center">2d10+4 damage</td><td style="text-align: center">Special</td></tr>
+</tbody></table>
+</div></blockquote>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../06/08-cunning-assets.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../06/10-wealth-assets.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../06/08-cunning-assets.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../06/10-wealth-assets.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>
