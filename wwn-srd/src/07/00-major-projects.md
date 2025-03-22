@@ -21,3 +21,10 @@ complicated may be required.
 
 - [Renown](01-renown.md)
 - [Determining the Project Difficulty](02-determining-the-project-difficulty.md)
+- [Determining the Project Scope](03-determining-the-project-scope.md)
+- [Determining the Opposition](04-determining-the-opposition.md)
+- [Decreasing Difficulty](05-decreasing-difficulty.md)
+- [Achieving the Goal](06-achieving-the-goal.md)
+- [Magical Projects](07-magical-projects.md)
+- [Major Projects and Existing Factions](08-major-projects.and-existing-factions.md)
+- [Player-Run Factions and Major Projects](09-player-run-factions-and-major-projects.md)
